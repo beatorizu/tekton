@@ -10,4 +10,4 @@ from gaepermission.decorator import login_not_required
 @login_not_required
 @gaecookie.decorator.no_csrf
 def index(_resp):
-    _resp.write("Bea")
+    return TemplateResponse()

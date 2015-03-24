@@ -2,12 +2,12 @@
 {% macro csrf_input() %}
     <input type="hidden" value="{{ _csrf_code }}" name="_csrf_code"/>
 {% endmacro %}
-{% macro form_input(label,property,value,error_msg) %}
+{% macro form_input(label,property,value,error_msg,placeholder) %}
     <div class="form-group {{ ' has-error' if error_msg }}">
         <label for="{{ property }}Input"
                class="control-label">{{ label }} </label>
         <input id="{{ property }}Input" type="text" class="form-control" name="{{ property }}"
-               value="{{ value }}"/>
+               value="{{ value }}" placeholder="{{ placeholder }}"/>
         {% if error_msg %}<span class="help-block">{{ error_msg }}</span>{% endif %}
     </div>
 {% endmacro %}
@@ -26,6 +26,9 @@
         .pad8 {
             margin: 8px 15px;
             color: #777
+        }
+        .prog {
+            font-family: 'Sketch Nice'
         }
     </style>
     <script src="/static/jquery/js/jquery-1.11.1.min.js"></script>
@@ -48,12 +51,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Tekton</a>
+            <a href="/progresso" class="navbar-brand">Home</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% macro select_tab(tab='') %}
-                    <li {{ 'class=active' if tab=='COURSES' }}><a href="/courses">{% trans %}Courses{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='CONTEUDO' }}><a href="/conteudo">{% trans %}Conteúdo{% endtrans %}</a>
+                    </li>
+                    <li {{ 'class=active' if tab=='LICAO' }}><a href="/licao">{% trans %}Lição{% endtrans %}</a>
+                    </li>
+                    <li {{ 'class=active' if tab=='CONFIGURACAO' }}><a href="/configuracao">{% trans %}Configuração{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
@@ -96,8 +103,8 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Tekton Full-Stack: <a target="_blank"
-                                                               href="https://github.com/renzon/tekton-fullstack">Git
+        <p class="text-muted text-right">Código Fonte do Projeto: <a target="_blank"
+                                                               href="https://github.com/beatorizu/tekton">Git
             Hub</a></p>
     </div>
 </div>

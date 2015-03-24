@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css"/>
+    <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<form role="form">
+                {{ form_input('Nome Completo','nomeCompleto','','','') }}
+				{{ form_input('Email','email','','','exemple@email.com') }}
+				<div class="form-group">
+					 <label for="exampleInputPassword1">Senha</label><input type="password" class="form-control" id="exampleInputPassword1" />
+				</div>
+                <div class="form-group">
+					 <label for="exampleInputPassword1">Confirmar Senha</label><input type="password" class="form-control" id="exampleInputPassword2" />
+				</div>
+                <button type="submit" class="btn btn-default">Cadastrar</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

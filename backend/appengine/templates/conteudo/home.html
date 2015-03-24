@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css"/>
+    <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+            <ul class="list-unstyled">
+                {% for c in conteudos %}
+                    <li><h3><a href="#">{{ c.titulo }} - {{ c.desc }}</a></h3></li>
+                {% endfor %}
+            </ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
