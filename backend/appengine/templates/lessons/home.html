@@ -1,0 +1,43 @@
+{% extends 'lessons/base.html' %}
+{% block body %}
+<div class="container">
+   <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well">
+        <h2> Formulário de Lição</h2>
+        <form action="{{ salvar_path }}" method="post">
+        <select name="lesson">
+            {% for lesson in lessons %}
+            <option value="{{ lesson.key.id() }}">{{ lesson.nome }}</option>
+            {% endfor %}
+
+</select>
+        {{ csrf_input() }}
+        {{ form_input('Título','titulo','','','') }}
+        {{ form_input('Descrição','descricao','','','') }}
+        <button class="btn btn-success" type="submit">Salvar</button>
+
+        </form>
+        <h3>Lista de Lições {{ 'do tema '+tema_selecionado.titulo if tema_selecionado}} </h3>
+        <form action="{{ pesquisa_path }}">
+        <select name="tema_selecionado">
+            {% for tema in temas %}
+            <option value="{{ tema.key.id() }}" {{ 'selected="selected"' | safe if tema == tema_selecionado }}>{{ tema.titulo }}</option>
+            {% endfor %}
+
+</select>
+        <button type="submit" class="btn btn-success">Pesquisar</button>
+
+</form>
+        <ul>
+            {% for lesson in lessons %}
+            <li>{{ lesson.titulo }} - {{ lesson.descricao }}</li>
+            {% endfor %}
+
+</ul>
+</div>
+
+    </div>
+   </div>
+</div>
+{% endblock %}
