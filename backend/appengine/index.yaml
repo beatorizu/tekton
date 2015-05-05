@@ -16,6 +16,11 @@ indexes:
   - name: origin
   - name: creation
 
+- kind: Licao
+  properties:
+  - name: tema
+  - name: titulo
+
 - kind: Node
   properties:
   - name: class

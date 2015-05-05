@@ -15,8 +15,9 @@ def index(tema_id):
     ctx = {'tema':tema, 'salvar_path': to_path(atualizar)}
     return TemplateResponse(ctx, '/temas/form.html')
 
-def atualizar(tema_id, titulo):
+def atualizar(tema_id, titulo,descricao):
     tema = Tema.get_by_id(int(tema_id))
     tema.titulo = titulo
+    tema.descricao = descricao
     tema.put()
     return RedirectResponse(temas)

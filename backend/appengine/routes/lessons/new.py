@@ -7,7 +7,7 @@ from routes import lessons
 
 __author__ = 'Bea'
 
-def savar(**propriedades):
+def salvar(**propriedades):
     propriedades['tema'] = ndb.Key(Tema, int(propriedades['tema']))
     form = LicaoForm(**propriedades)
     erros = form.validate()

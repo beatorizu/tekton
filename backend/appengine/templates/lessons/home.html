@@ -6,9 +6,9 @@
         <div class="well">
         <h2> Formulário de Lição</h2>
         <form action="{{ salvar_path }}" method="post">
-        <select name="lesson">
-            {% for lesson in lessons %}
-            <option value="{{ lesson.key.id() }}">{{ lesson.nome }}</option>
+        <select name="tema">
+            {% for tema in temas %}
+            <option value="{{ tema.key.id() }}">{{ tema.titulo }}</option>
             {% endfor %}
 
 </select>

@@ -18,7 +18,7 @@ class Tema(ndb.Model):
 
 class TemaForm(ModelForm):
     _model_class = Tema
-    _include = [Tema.titulo]
+    _include = [Tema.titulo,Tema.descricao]
 
 class Licao(ndb.Model):
     titulo = ndb.StringProperty(required=True)
