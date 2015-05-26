@@ -27,6 +27,8 @@ def index():
     ctx = {'salvar_path': to_path(salvar),'temas':temas}
     return TemplateResponse(ctx, 'temas/home.html')
 
+@login_not_required
+@no_csrf
 def deletar(tema_id):
     key = ndb.Key(Tema, int(tema_id))
     key.delete()

@@ -963,7 +963,7 @@ def scaffold(app, model, *properties):
     print init_new_script(app, model)
     _title('routes.edit.py')
     print init_edit_script(app, model)
-    _title('routes rest.py')
+    _title('routes lessons.py')
     print init_rest_script(app, model)
     _title('creating template folder ans base.html')
     init_html_templates(app)

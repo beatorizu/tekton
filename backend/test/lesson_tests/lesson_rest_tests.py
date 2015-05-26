@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-from datetime import datetime, date
-from decimal import Decimal
 from base import GAETestCase
 from lesson_app.lesson_model import Lesson
-from routes.lessons import rest
+from routes.rest import lessons
 from gaegraph.model import Node
 from mock import Mock
 from mommygae import mommy
@@ -14,7 +12,7 @@ class IndexTests(GAETestCase):
     def test_success(self):
         mommy.save_one(Lesson)
         mommy.save_one(Lesson)
-        json_response = rest.index()
+        json_response = lessons.index()
         context = json_response.context
         self.assertEqual(2, len(context))
         lesson_dct = context[0]
@@ -25,7 +23,7 @@ class IndexTests(GAETestCase):
 class NewTests(GAETestCase):
     def test_success(self):
         self.assertIsNone(Lesson.query().get())
-        json_response = rest.new(None, description='description_string', title='title_string')
+        json_response = lessons.new(None, description='description_string', title='title_string')
         db_lesson = Lesson.query().get()
         self.assertIsNotNone(db_lesson)
         self.assertEquals('description_string', db_lesson.description)
@@ -34,7 +32,7 @@ class NewTests(GAETestCase):
 
     def test_error(self):
         resp = Mock()
-        json_response = rest.new(resp)
+        json_response = lessons.new(resp)
         errors = json_response.context
         self.assertEqual(500, resp.status_code)
         self.assertSetEqual(set(['description', 'title']), set(errors.keys()))
@@ -45,7 +43,7 @@ class EditTests(GAETestCase):
     def test_success(self):
         lesson = mommy.save_one(Lesson)
         old_properties = lesson.to_dict()
-        json_response = rest.edit(None, lesson.key.id(), description='description_string', title='title_string')
+        json_response = lessons.edit(None, lesson.key.id(), description='description_string', title='title_string')
         db_lesson = lesson.key.get()
         self.assertEquals('description_string', db_lesson.description)
         self.assertEquals('title_string', db_lesson.title)
@@ -56,7 +54,7 @@ class EditTests(GAETestCase):
         lesson = mommy.save_one(Lesson)
         old_properties = lesson.to_dict()
         resp = Mock()
-        json_response = rest.edit(resp, lesson.key.id())
+        json_response = lessons.edit(resp, lesson.key.id())
         errors = json_response.context
         self.assertEqual(500, resp.status_code)
         self.assertSetEqual(set(['description', 'title']), set(errors.keys()))
@@ -67,13 +65,13 @@ class EditTests(GAETestCase):
 class DeleteTests(GAETestCase):
     def test_success(self):
         lesson = mommy.save_one(Lesson)
-        rest.delete(None, lesson.key.id())
+        lessons.delete(None, lesson.key.id())
         self.assertIsNone(lesson.key.get())
 
     def test_non_lesson_deletion(self):
         non_lesson = mommy.save_one(Node)
         response = Mock()
-        json_response = rest.delete(response, non_lesson.key.id())
+        json_response = lessons.delete(response, non_lesson.key.id())
         self.assertIsNotNone(non_lesson.key.get())
         self.assertEqual(500, response.status_code)
         self.assert_can_serialize_as_json(json_response)

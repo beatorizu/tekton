@@ -1,43 +1,42 @@
 {% extends 'lessons/base.html' %}
+{% block js %}
+    <script type="application/javascript" src="/static/js/lessons.js"></script>
+{% endblock %}
 {% block body %}
 <div class="container">
    <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="well">
         <h2> Formulário de Lição</h2>
-        <form action="{{ salvar_path }}" method="post">
-        <select name="tema">
-            {% for tema in temas %}
-            <option value="{{ tema.key.id() }}">{{ tema.titulo }}</option>
-            {% endfor %}
-
-</select>
         {{ csrf_input() }}
+        Tema:
+        {% macro select(name) %}
+            <select name="{{ name }}" id = "id_tema">
+                {% for tema in temas %}
+                    <option value="{{ tema.key.id() }}"
+                            {{ 'selected="selected"' | safe if tema_selecionado==tema }}
+                            >{{ tema.titulo }}</option>
+                {% endfor %}
+            </select>
+        {% endmacro %}
+        {{ select('tema') }}
         {{ form_input('Título','titulo','','','') }}
         {{ form_input('Descrição','descricao','','','') }}
-        <button class="btn btn-success" type="submit">Salvar</button>
+            <button id="salvar-btn" class="btn btn-success">Salvar</button>
+            <img src="/static/img/a.gif" id="ajax-save-gif"/>
 
-        </form>
-        <h3>Lista de Lições {{ 'do tema '+tema_selecionado.titulo if tema_selecionado}} </h3>
-        <form action="{{ pesquisa_path }}">
-        <select name="tema_selecionado">
-            {% for tema in temas %}
-            <option value="{{ tema.key.id() }}" {{ 'selected="selected"' | safe if tema == tema_selecionado }}>{{ tema.titulo }}</option>
-            {% endfor %}
+        <div id="busca">
+            <h3>Lista de Lições {{ 'do tema' + tema_selecionado.titulo if tema_selecionado }}</h3>
+            <form action="{{ pesquisa_path }}">
+            {{ select('tema_selecionado') }}
+            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+            <ul id="lessons-ul">
 
-</select>
-        <button type="submit" class="btn btn-success">Pesquisar</button>
-
-</form>
-        <ul>
-            {% for lesson in lessons %}
-            <li>{{ lesson.titulo }} - {{ lesson.descricao }}</li>
-            {% endfor %}
-
-</ul>
-</div>
-
+            </ul>
+        </div>
     </div>
-   </div>
+</div>
+</div>
 </div>
 {% endblock %}
