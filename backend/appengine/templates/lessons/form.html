@@ -5,15 +5,16 @@
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<form role="form" action="{{ salvar_path }}" method="post">
-                {{ csrf_input() }}
-                {{ form_input('Título','titulo',lesson.titulo,erros.titulo,'') }}
-				{{ form_input('Descrição','descricao',lesson.descricao,erros.descricao,'') }}
-                {% if lesson.key  %}
-                    <input type="hidden" name="lesson_id" value="{{ lesson.key.id() }}" />
-                {% endif %}
-                <button type="submit" class="btn btn-default">Cadastrar</button>
-			</form>
+            <h2> Formulário de Lição</h2>
+        <form role="form" action="{{ salvar_path }}" method="post">
+        {{ csrf_input() }}
+            Tema:
+        {{ select('tema') }}
+        {{ form_input('Título','titulo',lesson.titulo,erros.titulo,'') }}
+		{{ form_input('Descrição','descricao',lesson.descricao,erros.descricao,'') }}
+        <button class="btn btn-success" type="submit">Salvar</button>
+
+        </form>
 		</div>
 	</div>
 </div>

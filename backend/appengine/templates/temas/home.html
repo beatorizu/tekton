@@ -1,5 +1,7 @@
 {% extends 'temas/base.html' %}
 {% block body %}
+{% set tema = tema or None %}
+{% set erros = erros or None %}
 <div class="container">
    <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -14,11 +16,11 @@
                 <h3>Lista de Temas</h3>
                 <ul>
                     {% for tema in temas %}
-                        <li>{{ tema.titulo }}
-                         <a class="btn btn-success" href="{{ tema.edit_path }}">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                         </a>
                          <form action="{{ tema.deletar_path }}" method="post">
+                             <li>{{ tema.titulo }}
+                             <a class="btn btn-success" href="{{ tema.edit_path }}">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                             </a>
                             {{ csrf_input() }}
                             <button class="btn btn-danger">
                                 <i class="glyphicon glyphicon-trash"></i>

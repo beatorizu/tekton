@@ -32,4 +32,4 @@ def index():
 def deletar(tema_id):
     key = ndb.Key(Tema, int(tema_id))
     key.delete()
-    return RedirectResponse(index)
+    return RedirectResponse(to_path(index))

@@ -1,6 +1,6 @@
 
 application: bea-project
-version: 4
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: yes

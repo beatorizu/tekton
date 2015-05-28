@@ -7,16 +7,9 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="well">
         <h2> Formulário de Lição</h2>
-        <form action="{{ salvar_path }}" method="post">
+        <form role="form" action="{{ salvar_path }}" method="post">
         {{ csrf_input() }}
             Tema:
-            {% macro select(nome) %}
-+    <select name="{{ nome }}">
-+    {% for tema in temas %}
-+        <option value="{{ tema.key.id() }}" {{'selected="selected"' | safe if tema_selecionado==tema }}> {{ tema.titulo }}</option>
-+    {% endfor %}
-+</select>
-        {% endmacro %}
         {{ select('tema') }}
         {{ form_input('Título','titulo',lesson.titulo,erros.titulo,'') }}
 		{{ form_input('Descrição','descricao',lesson.descricao,erros.descricao,'') }}

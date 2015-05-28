@@ -2,3 +2,10 @@
 {% block tabs %}
 {{ select_tab('LESSONS') }}
 {% endblock %}
+{% macro select(nome) %}
+    <select name="{{ nome }}" property="tema">
+        {% for tema in temas %}
+            <option value="{{ tema.key.id() }}" {{'selected="selected"' | safe if tema_selecionado==tema }}> {{ tema.titulo }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}
