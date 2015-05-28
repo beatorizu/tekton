@@ -1,4 +1,7 @@
 {% extends 'lessons/base.html' %}
+{% block js %}
+    <script type="application/javascript" src="/static/js/lessons.js"></script>
+{% endblock %}
 {% block body %}
 {% set lesson = lesson or None %}
 {% set erros = erros or None %}
@@ -7,25 +10,23 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="well">
         <h2> Formulário de Lição</h2>
-        <form role="form" action="{{ salvar_path }}" method="post">
         {{ csrf_input() }}
             Tema:
         {{ select('tema') }}
         {{ form_input('Título','titulo',lesson.titulo,erros.titulo,'') }}
 		{{ form_input('Descrição','descricao',lesson.descricao,erros.descricao,'') }}
-        <button class="btn btn-success" type="submit">Salvar</button>
-
-        </form>
+        <button id="salvar-btn" class="btn btn-success">Salvar</button>
+            <img src="/static/img/a.gif" id="ajax-save-gif"/>
         <h3>Lista de Lições {{ 'do tema '+tema_selecionado.titulo if tema_selecionado}} </h3>
-        <form action="{{ pesquisa_path }}">
+        <form action="{{ pesquisar_path }}">
         {{ select('tema_selecionado') }}
         <button type="submit" class="btn btn-success">Pesquisar</button>
 
 </form>
         <ul>
-            {% for lesson in lessons %}
-            <li>{{ lesson.titulo }} - {{ lesson.descricao }}</li>
-            {% endfor %}
+            {<ul id="lessons-ul">
+
+            </ul>
 
 </ul>
 </div>
