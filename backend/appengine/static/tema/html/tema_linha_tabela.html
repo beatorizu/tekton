@@ -1,0 +1,17 @@
+<tr>
+    <td>
+        <a class="btn btn-success" href="{{ tema.edit_path }}">
+        <i class="glyphicon glyphicon-pencil"></i></a>
+    </td>
+    <td>{{ tema.id }}</td>
+    <td>{{ tema.titulo }}</td>
+    <td>{{ tema.descricao }}</td>
+    <td>
+        <form action="{{ tema.deletar_path }}" method="post" onsubmit="return confirm('(Deseja realmente remover o registr.)')">
+            {{ csrf_input() }}
+            <button class="btn btn-danger btn-sm">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </form>
+    </td>
+</tr>

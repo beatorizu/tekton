@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
-from routes.temas import edit
+from routes.temas import edit, rest
 from routes.temas.new import salvar
 from tekton.gae.middleware.redirect import RedirectResponse
 from tema.tema_model import Tema
@@ -24,7 +24,8 @@ def index():
         key_id = key.id()
         tema.edit_path = to_path(edit_path_base, key_id)
         tema.deletar_path = to_path(deletar_path_base, key_id)
-    ctx = {'salvar_path': to_path(salvar),'temas':temas}
+    #'temas/rest/salvar'
+    ctx = {'salvar_path': to_path(salvar),'temas':temas, 'rest_new_path': to_path(rest.salvar)}
     return TemplateResponse(ctx, 'temas/home.html')
 
 @login_not_required

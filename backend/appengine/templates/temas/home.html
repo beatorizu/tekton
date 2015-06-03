@@ -1,36 +1,48 @@
 {% extends 'temas/base.html' %}
+{% block js %}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/tema/js/tema.js"></script><!--referência ao módulo tema-->
+    {# <script type="text/javascript" src="/static/tema/js/tema_api_mock.js"></script><!--referência ao módulo tema--> #}
+    <script>
+
+        var rest = angular.module('rest',[]);
+        rest.factory('TemaApi',function($http) {
+        return {
+           salvar: function(tema) {
+               return $http.post('{{ rest_new_path }}',tema);
+           }
+       };
+    });
+
+        var temaApp = angular.module('temaApp', ['temaModule']);
+        function TemaController($scope) {
+            $scope.tema = {titulo: 'Titulo', descricao: 'Descrição'};
+            $scope.showFormFlag = false;
+            $scope.showOrHideForm = function() {
+                $scope.showFormFlag = !$scope.showFormFlag;
+            }
+        }
+    </script>
+{% endblock %}
 {% block body %}
-{% set tema = tema or None %}
-{% set erros = erros or None %}
-<div class="container">
-   <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="well">
-                <h2> Formulário de Tema</h2>
-                    <form action="{{ salvar_path }}" method="post">
-                        {{ csrf_input() }}
-                        {{ form_input('Título','titulo','','','') }}
-                        {{ form_input('Descrição','descricao','','','') }}
-                    <button class="btn btn-success" type="submit">Salvar</button>
-                </form>
-                <h3>Lista de Temas</h3>
-                <ul>
-                    {% for tema in temas %}
-                         <form action="{{ tema.deletar_path }}" method="post">
-                             <li>{{ tema.titulo }}
-                             <a class="btn btn-success" href="{{ tema.edit_path }}">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                             </a>
-                            {{ csrf_input() }}
-                            <button class="btn btn-danger">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </button>
-                        </form>
-                        </li>
-                    {% endfor %}
-                </ul>
+    {% set tema = tema or None %}
+    {% set erros = erros or None %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" ng-app="temaApp" ng-controller="TemaController">
+                <button class="btn btn-success" ng-click="showOrHideForm()">Criar novo Tema</button>
+                <temaform ng-show="showFormFlag" tema="tema" titulo-label="Titulo" descricao-label="Descrição"></temaform>
+                    <h3>Lista de Temas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>{% trans %}Título{% endtrans %}</th>
+                                <th>{% trans %}Descrição{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                    </table>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}

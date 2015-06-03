@@ -1,36 +1,37 @@
 {% extends 'lessons/base.html' %}
 {% block js %}
-    <script type="application/javascript" src="/static/js/lessons.js"></script>
+    {# https://docs.angularjs.org/error/$injector/unpr?p0=LessonApiProvider%20%3C-%20LessonApi #}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/lesson/js/lesson.js"></script><!--referência ao módulo lesson-->
+    <script>
+
+        var rest = angular.module('rest',[]);
+        rest.factory('LessonApi',function($http) {
+        return {
+           salvar: function(lesson) {
+               return $http.post('{{ rest_new_path }}',lesson);
+           }
+       };
+    });
+
+        var lessonApp = angular.module('lessonApp', ['lessonModule']);
+        function LessonController($scope) {
+            $scope.lesson = {titulo: 'Titulo', descricao: 'Descrição'};
+            $scope.showFormFlag = false;
+            $scope.showOrHideForm = function() {
+                $scope.showFormFlag = !$scope.showFormFlag;
+            }
+        }
+    </script>
 {% endblock %}
 {% block body %}
 {% set lesson = lesson or None %}
 {% set erros = erros or None %}
 <div class="container">
    <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="well">
-        <h2> Formulário de Lição</h2>
-        {{ csrf_input() }}
-            Tema:
-        {{ select('tema') }}
-        {{ form_input('Título','titulo',lesson.titulo,erros.titulo,'') }}
-		{{ form_input('Descrição','descricao',lesson.descricao,erros.descricao,'') }}
-        <button id="salvar-btn" class="btn btn-success">Salvar</button>
-            <img src="/static/img/a.gif" id="ajax-save-gif"/>
-        <h3>Lista de Lições {{ 'do tema '+tema_selecionado.titulo if tema_selecionado}} </h3>
-        <form action="{{ pesquisar_path }}">
-        {{ select('tema_selecionado') }}
-        <button type="submit" class="btn btn-success">Pesquisar</button>
-
-</form>
-        <ul>
-            {<ul id="lessons-ul">
-
-            </ul>
-
-</ul>
-</div>
-
+    <div class="col-md-8 col-md-offset-2" ng-app="lessonApp" ng-controller="LessonController">
+        <button class="btn btn-success" ng-click="showOrHideForm()">Criar nova Lição</button>
+        <lessonform ng-show="showFormFlag" lesson="lesson" titulo-label="Titulo" descricao-label="Descrição"></lessonform>
     </div>
    </div>
 </div>
