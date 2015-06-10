@@ -39,6 +39,22 @@ def salvar(_resp, **propriedades):
 
 @login_not_required
 @no_csrf
+def editar(_resp, **propriedades):
+    form = TemaForm(**propriedades)
+    erros = form.validate()
+    if erros:
+        _resp.set_status(400)
+        return JsonUnsecureResponse(erros)
+    tema = ndb.Key(Tema, int(propriedades['tema_id'])).get()
+    tema.titulo = propriedades['titulo']
+    tema.descricao = propriedades['descricao']
+    tema.put()
+    dct = form.fill_with_model(tema)
+    log.info(dct)
+    return JsonUnsecureResponse(dct)
+
+@login_not_required
+@no_csrf
 def deletar(tema_id):
     key = ndb.Key(Tema, int(tema_id))
     key.delete()

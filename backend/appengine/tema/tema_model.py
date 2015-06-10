@@ -23,7 +23,7 @@ class TemaForm(ModelForm):
 class Licao(ndb.Model):
     titulo = ndb.StringProperty(required=True)
     descricao = ndb.StringProperty(required=True)
-    tema = ndb.KeyProperty(Tema, required=True)
+    tema = ndb.KeyProperty(Tema, required=False)
 
     @classmethod
     def query_ordenada_por_titulo(cls):

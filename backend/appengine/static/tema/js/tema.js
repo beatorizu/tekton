@@ -50,10 +50,27 @@ temaModule.directive('temalinha', function () {
         },
         controller: function ($scope, TemaApi) {
             $scope.ajaxComplete = false;
+            $scope.editFlag = false;
+            $scope.temaEdicao = {};
             $scope.deletar = function() {
                 $scope.ajaxComplete = true;
                 TemaApi.deletar($scope.tema.id).success(function() {
                     $scope.deleteComplete({'tema':$scope.tema});
+                });
+            }
+            $scope.editar = function() {
+                $scope.editFlag = true;
+                $scope.temaEdicao.id = $scope.tema.id;
+                $scope.temaEdicao.titulo = $scope.tema.titulo;
+                $scope.temaEdicao.descricao = $scope.tema.descricao;
+            }
+            $scope.cancelarEdicao = function() {
+                $scope.editFlag = false;
+            }
+            $scope.completarEdicao = function() {
+                TemaApi.editar($scope.temaEdicao).success(function(tema) {
+                    $scope.tema = tema;
+                    $scope.editFlag = false;
                 });
             }
         }

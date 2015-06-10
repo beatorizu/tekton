@@ -12,23 +12,9 @@ __author__ = 'Bea'
 
 @login_not_required
 @no_csrf
-def index(tema_selecionado = None):
-    ctx = {'temas':Tema.query_ordenada_por_titulo().fetch(),
-           'salvar_path':to_path(salvar),
-           'pesquisar_path':to_path(index), 'rest_new_path': to_path(rest.salvar)}
-    if tema_selecionado is None:
-        ctx['tema_selecionado'] = None
-    else:
-        ctx['tema_selecionado'] = Tema.get_by_id(int(tema_selecionado))
-    return TemplateResponse(ctx,'lessons/home.html')
-
-def pesquisar(tema_selecionado):
-    ctx = {'temas':Tema.query_ordenada_por_titulo().fetch(),
-           }
-    if tema_selecionado is None:
-         ctx['lessons'] = Licao.query_ordenada_por_titulo().fetch()
-         ctx['tema_selecionado'] = None
-    else:
-         ctx['tema_selecionado'] = Tema.get_by_id(int(tema_selecionado))
-         ctx['lessons'] = Licao.query_por_tema_ordenada_por_nome(tema_selecionado)
-    return TemplateResponse(ctx,'lessons/home.html')
+def index():
+    ctx = {'rest_list_path':to_path(rest.index),
+           'rest_delete_path': to_path(rest.deletar),
+           'rest_edit_path': to_path(rest.editar),
+           'rest_new_path': to_path(rest.salvar)}
+    return TemplateResponse(ctx, 'lessons/home.html')

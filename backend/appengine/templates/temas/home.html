@@ -16,6 +16,9 @@
                 },
                 deletar: function (id) {
                     return $http.post('{{ rest_delete_path }}',{tema_id:id});
+                },
+                editar: function(tema) {
+                    return $http.post('{{ rest_edit_path }}/',{tema_id:tema.id, titulo:tema.titulo, descricao:tema.descricao});
                 }
 
             };
@@ -48,7 +51,6 @@
                     }
                 }
             }
-
         }
     </script>
 {% endblock %}
