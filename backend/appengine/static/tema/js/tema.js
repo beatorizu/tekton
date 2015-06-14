@@ -71,6 +71,8 @@ temaModule.directive('temalinha', function () {
                 TemaApi.editar($scope.temaEdicao).success(function(tema) {
                     $scope.tema = tema;
                     $scope.editFlag = false;
+                }).error(function(erros) {
+                    $scope.erros = erros;
                 });
             }
         }

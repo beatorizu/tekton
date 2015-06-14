@@ -9,9 +9,18 @@
     </td>
     <img src="/static/img/ajax.gif" ng-show="ajaxFlag"/>
     <td>{{ lesson.id }}</td>
-    <td><span ng-hide="editFlag">{{ lesson.titulo }}</span><input ng-show="editFlag" class="form-control" type="text" ng-model="lessonEdicao.titulo"/></td>
-    <td><span ng-hide="editFlag">{{ lesson.descricao }}</span><input ng-show="editFlag" class="form-control" type="text" ng-model="lessonEdicao.descricao"/></td>
-    <td>{{ lesson.tema }}</td>
+    <td>
+        <div ng-class="{true: '', false: 'has-error'}[erros.titulo == null]">
+            <span ng-hide="editFlag">{{ lesson.titulo }}</span>
+            <input ng-show="editFlag" class="form-control" type="text" ng-model="lessonEdicao.titulo"/>
+        </div>
+    </td>
+    <td>
+        <div ng-class="{true: '', false: 'has-error'}[erros.descricao == null]">
+            <span ng-hide="editFlag">{{ lesson.descricao }}</span>
+            <input ng-show="editFlag" class="form-control" type="text" ng-model="lessonEdicao.descricao"/>
+        </div>
+    </td>
     <td>
         <button class="btn btn-danger btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="deletar()">
             <i class="glyphicon glyphicon-trash"></i>

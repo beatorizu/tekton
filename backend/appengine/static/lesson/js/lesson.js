@@ -12,6 +12,8 @@ lessonModule.directive('lessonform', function() {
            lesson: '=',
            tituloLabel: '@',
            descricaoLabel: '@',
+           temaLabel: '@',
+           temas: '=',
            saveComplete: '&'
        },
        controller: function ($scope, LessonApi) {
@@ -27,6 +29,7 @@ lessonModule.directive('lessonform', function() {
                     }
                     $scope.lesson.titulo = '';
                     $scope.lesson.descricao = '';
+                    $scope.lesson.tema = '';
                     $scope.savingFlag = false;
                 })
                 promisse.error(function (erros) {
@@ -63,6 +66,7 @@ lessonModule.directive('lessonlinha', function () {
                 $scope.lessonEdicao.id = $scope.lesson.id;
                 $scope.lessonEdicao.titulo = $scope.lesson.titulo;
                 $scope.lessonEdicao.descricao = $scope.lesson.descricao;
+                $scope.lessonEdicao.tema = $scope.lesson.tema;
             }
             $scope.cancelarEdicao = function() {
                 $scope.editFlag = false;
@@ -72,6 +76,8 @@ lessonModule.directive('lessonlinha', function () {
                     $scope.lesson = lesson;
                     $scope.editFlag = false;
                     console.log(lesson);
+                }).error(function(erros) {
+                    $scope.erros = erros;
                 });
             }
         }

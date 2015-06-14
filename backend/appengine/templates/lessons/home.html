@@ -8,17 +8,20 @@
         var rest = angular.module('rest', []);
         rest.factory('LessonApi', function ($http) {
             return {
-                salvar: function (lesson) {
+                salvar: function(lesson) {
                     return $http.post('{{ rest_new_path }}', lesson);
                 },
-                listar: function () {
+                listar: function() {
                     return $http.post('{{ rest_list_path }}');
                 },
-                deletar: function (id) {
+                deletar: function(id) {
                     return $http.post('{{ rest_delete_path }}', {lesson_id: id});
                 },
                 editar: function(lesson) {
-                    return $http.post('{{ rest_edit_path }}/',{lesson_id:lesson.id, titulo:lesson.titulo, descricao:lesson.descricao});
+                    return $http.post('{{ rest_edit_path }}/',{lesson_id:lesson.id, titulo:lesson.titulo, descricao:lesson.descricao, tema: lesson.tema});
+                },
+                listarTemas: function() {
+                    return $http.post('{{ rest_list_tema_path }}');
                 }
             };
         });
@@ -26,7 +29,13 @@
         var lessonApp = angular.module('lessonApp', ['lessonModule', 'rest']);
 
         function LessonController($scope, LessonApi) {
-            $scope.lesson = {titulo: 'Titulo', descricao: 'Descrição'};
+            $scope.temas = [];
+            LessonApi.listarTemas().success(function (temas) {
+                $scope.temas = temas;
+            }).error(function (erros) {
+                $scope.erros = erros;
+            })
+            $scope.lesson = {titulo: '', descricao: '', tema: ''};
             $scope.showFormFlag = false;
             $scope.listandoFlag = true;
             $scope.lessonLista = [];
@@ -57,14 +66,15 @@
 {% block body %}
     {% set lesson = lesson or None %}
     {% set erros = erros or None %}
+    {% set temas = temas or None %}
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="lessonApp" ng-controller="LessonController">
                 <button class="btn btn-success" ng-click="showOrHideForm()">Criar nova Lição</button>
-                <lessonform save-complete="addLesson(lesson)" ng-show="showFormFlag" lesson="lesson"
-                            titulo-label="Titulo" descricao-label="Descrição"></lessonform>
+                <lessonform save-complete="addLesson(lesson)" ng-show="showFormFlag" lesson="lesson" temas="temas"
+                            titulo-label="Titulo" descricao-label="Descrição" tema-label="Tema"></lessonform>
 
-                <h3>Lista de Lessons</h3>
+                <h3>Lista de Lições</h3>
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
@@ -72,7 +82,6 @@
                         <th>{% trans %}Id{% endtrans %}</th>
                         <th>{% trans %}Título{% endtrans %}</th>
                         <th>{% trans %}Descrição{% endtrans %}</th>
-                        <th>{% trans %}Tema{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
