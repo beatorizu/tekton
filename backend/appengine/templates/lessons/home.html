@@ -17,6 +17,9 @@
                 deletar: function(id) {
                     return $http.post('{{ rest_delete_path }}', {lesson_id: id});
                 },
+                filtrar: function(tema) {
+                    return $http.post('{{ rest_filter_path }}', {tema_id: tema});
+                },
                 editar: function(lesson) {
                     return $http.post('{{ rest_edit_path }}/',{lesson_id:lesson.id, titulo:lesson.titulo, descricao:lesson.descricao, tema: lesson.tema});
                 },
@@ -37,7 +40,9 @@
             })
             $scope.lesson = {titulo: '', descricao: '', tema: ''};
             $scope.showFormFlag = false;
+            $scope.showFilterFlag = true;
             $scope.listandoFlag = true;
+            $scope.filtrandoFlag = false;
             $scope.lessonLista = [];
             LessonApi.listar().success(function (lessons) {
                 $scope.lessonLista = lessons;
@@ -75,6 +80,7 @@
                             titulo-label="Titulo" descricao-label="Descrição" tema-label="Tema"></lessonform>
 
                 <h3>Lista de Lições</h3>
+                <lessonfilter ng-show="true" temas="temas"></lessonfilter>
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
@@ -85,7 +91,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr lessonlinha ng-repeat="t in lessonLista" lesson="t"
+                    <tr></tr>
+                    <tr ng-hide="filtrandoFlag" lessonlinha ng-repeat="t in lessonLista" lesson="t"
                         delete-complete="removerLesson(lesson)"></tr>
                     </tbody>
                 </table>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
+import json
 from distutils import log
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
@@ -69,3 +70,11 @@ def editar(_resp, **propriedades):
     dct = form.fill_with_model(licao)
     log.info(dct)
     return JsonUnsecureResponse(dct)
+
+@login_not_required
+@no_csrf
+def filtrar(tema_id):
+    form = LicaoForm()
+    lessons = Licao.query_por_tema_ordenada_por_nome(ndb.Key(Tema, int(tema_id))).fetch()
+    lessons = [form.fill_with_model(l) for l in lessons]
+    return JsonResponse(lessons)
