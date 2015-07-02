@@ -37,3 +37,4 @@ class Licao(ndb.Model):
 
 class LicaoForm(ModelForm):
     _model_class = Licao
+    _include = [Licao.titulo,Licao.descricao,Licao.tema]

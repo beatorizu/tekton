@@ -21,4 +21,4 @@ def salvar(**kwargs):
         return RedirectResponse(temas)
     else:
         ctx = {'tema':kwargs, 'erros':erros}
-        return TemplateResponse(ctx, '/temas/form.html')
+        return TemplateResponse(ctx, 'temas/form.html')

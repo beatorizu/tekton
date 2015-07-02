@@ -1,0 +1,10 @@
+<div>
+    <div class="col-md-10 column">
+        <select class="form-control" ng-model="tema" ng-options="t.id as t.titulo for t in temas">
+            <option value="">--Selecione um tema--</option>
+        </select>
+    </div>
+    <div class="col-md-2 column">
+        <button type="submit" class="btn btn-success" ng-click="filtrar()">Filtrar</button>
+    </div>
+</div>
