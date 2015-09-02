@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% block tabs %}
+{{ select_tab('CARDS') }}
+{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="well">
+				<h2>
+					Frente
+				</h2>
+                <form role="form">
+                    <div class="form-group">
+
+                        <label for="frase-input">
+                            Frase
+                        </label>
+                        <input class="form-control" id="frase-input" type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="image-input">
+                            Ordem dos traços
+                        </label>
+                        <p>
+                            <span class="glyphicon glyphicon-picture"></span>
+                            <input id="image-input" type="file" accept="image/gif"/>
+                        </p>
+                        <p class="help-block">
+                            image.gif
+                        </p>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="audio-input">
+                            Áudio
+                        </label>
+                        <p>
+                            <span class="glyphicon glyphicon-music                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "></span>
+                            <input id="audio-input" type="file" accept="audio/mpeg"/>
+                        </p>
+                        <p class="help-block">
+                            audio.mp3
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+		<div class="col-md-6">
+			<div class="well">
+				<h2>
+					Verso
+				</h2>
+                <form role="form">
+                    <div class="form-group">
+
+                        <label for="resposta-input">
+                            Resposta
+                        </label>
+                        <input class="form-control" id="resposta-input" type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="alternativa-input">
+                            Alternativa
+                        </label>
+                        <input class="form-control" id="alternativa-input-0" type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="alternativa-input">
+                            Alternativa
+                        </label>
+                        <input class="form-control" id="alternativa-input-1" type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="alternativa-input">
+                            Alternativa
+                        </label>
+                        <input class="form-control" id="alternativa-input-2" type="text" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-default btn-block glyphicon glyphicon-open">
+                Salvar
+            </button>
+        </div>
+	</div>
+
+    </div>
+{% endblock %}

@@ -8,7 +8,11 @@
         </button>
     </td>
     <img src="/static/img/ajax.gif" ng-show="ajaxFlag"/>
-    <td>{{ lesson.id }}</td>
+    <td>
+        <button class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="">
+            <i class="glyphicon glyphicon-edit"></i>
+        </button>
+    </td>
     <td>
         <div ng-class="{true: '', false: 'has-error'}[erros.titulo == null]">
             <span ng-hide="editFlag">{{ lesson.titulo }}</span>
