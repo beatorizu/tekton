@@ -19,18 +19,13 @@
 
     <title>{% block title %}Nihongo{% endblock %}</title>
     <!-- Bootstrap -->
+    
+    <link rel="stylesheet" href="specimen_files/specimen_stylesheet.css" type="text/css" charset="utf-8" />
+	<link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
 
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/default.css" rel="stylesheet">
-
-    <!-- Purisa Font - Font Squirrel -->
-
-	<link rel="stylesheet" href="/static/purisamedium/css/stylesheet.min.css" type="text/css" charset="utf-8" />
-
     <style>
-    	body{
-			font-family: 'purisamedium';
-		}
         .pad8 {
             margin: 8px 15px;
             color: #777
@@ -71,8 +66,6 @@
                     <li {{ 'class=active' if tab=='TEMAS' }}><a href="/temas">{% trans %}Temas{% endtrans %}</a>
                     </li>
                     <li {{ 'class=active' if tab=='LESSONS' }}><a href="/lessons">{% trans %}Lessons{% endtrans %}</a>
-                    </li>
-                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards">{% trans %}Cards{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
