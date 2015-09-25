@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-import json
 from google.appengine.ext import ndb
 from distutils import log
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse, JsonResponse
-from tema.tema_model import LicaoForm, TemaForm, Tema
+from tema.tema_model import TemaForm, Tema
 
 __author__ = 'Bea'
 

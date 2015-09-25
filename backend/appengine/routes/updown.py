@@ -21,16 +21,16 @@ def download(_handler,id,filename):
 @login_not_required
 @no_csrf
 def index():
+    ctx={'arquivos':listImages()}
+    return TemplateResponse(ctx, 'updown_home.html')
+
+def listImages():#usar para listar os arquivos de mp3 e gif dos cards ^^
     comando=blob_facade.list_blob_files_cmd()
     arquivos=comando()
     download_path=to_path(download)
     for arq in arquivos:
         arq.download_path=to_path(download_path,arq.key.id(),arq.filename)
-
-    ctx={'arquivos':arquivos}
-    return TemplateResponse(ctx, 'updown_home.html')
-
-
+    return arquivos
 
 @login_not_required
 def upload(_handler, files):

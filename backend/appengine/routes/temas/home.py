@@ -4,8 +4,7 @@ import json
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
-from routes.temas import edit, rest
-from routes.temas.new import salvar
+from routes.temas import rest
 from tekton.router import to_path
 
 __author__ = 'Bea'

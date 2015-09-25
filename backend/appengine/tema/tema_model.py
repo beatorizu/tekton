@@ -38,3 +38,20 @@ class Licao(ndb.Model):
 class LicaoForm(ModelForm):
     _model_class = Licao
     _include = [Licao.titulo,Licao.descricao,Licao.tema]
+
+class Cartao(ndb.Model):
+    frase = ndb.StringProperty(required=True)
+    resposta = ndb.StringProperty(required=True)
+    # image = ndb.BlobProperty()
+    # sound = ndb.BlobProperty()
+    alternativa0 = ndb.StringProperty(required=True)
+    alternativa1 = ndb.StringProperty(required=True)
+    alternativa2 = ndb.StringProperty(required=True)
+
+    @classmethod
+    def query_ordenada_por_frase(cls):
+        return cls.query().order(Cartao.frase)
+
+class CartaoForm(ModelForm):
+    _model_class = Cartao
+    _include = [Cartao.frase,Cartao.resposta,Cartao.alternativa0,Cartao.alternativa1,Cartao.alternativa2]

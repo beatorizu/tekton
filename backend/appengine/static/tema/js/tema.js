@@ -41,7 +41,7 @@ temaModule.directive('temaform', function () {
 
 temaModule.directive('temalinha', function () {
     return {
-        restrict: 'A',
+        restrict: 'E',
         replace: true,
         templateUrl: '/static/tema/html/tema_linha_tabela.html',
         scope: {

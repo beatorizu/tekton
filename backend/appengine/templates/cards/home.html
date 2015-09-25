@@ -4,9 +4,33 @@
     <script type="text/javascript" src="/static/card/js/card.js"></script><!--referência ao módulo card-->
     <script type="text/javascript">
 
-        var cardApp = angular.module('cardApp', ['cardModule'])
-        function CardController($scope) {
-            //$scope.card = {frase: '空は青いです', resposta: '空は青いです', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa1: '雲は黒いです'}
+        var rest = angular.module('rest', []);
+        rest.factory('CardApi', function ($http) {
+            return {
+                salvar: function (card) {
+                    return $http.post('{{ rest_new_path }}', card);
+                },
+                listar: function () {
+                    return $http.post('{{ rest_list_path }}');
+                }
+            };
+        });
+
+        var cardApp = angular.module('cardApp', ['cardModule','rest'])
+        function CardController($scope, CardApi) {
+            $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa2: '雲は黒いです'}
+            $scope.showFormFlag = false;
+            $scope.cardLista = [];
+            CardApi.listar().success(function (cards) {
+                $scope.cardLista = cards;
+                $scope.listandoFlag = false;
+            });
+            $scope.showOrHideForm = function () {
+                $scope.showFormFlag = !$scope.showFormFlag;
+            }
+            $scope.addCard = function (card) {
+                $scope.cardLista.unshift(card);
+            }
         }
     </script>
 {% endblock %}
@@ -16,7 +40,16 @@
 {% block body %}
     {% set card = card or None %}
     {% set erros = erros or None %}
-    <div class="container-fluid" ng-app="cardApp">
-	    <cardform></cardform>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
+                <button class="btn btn-success" ng-click="showOrHideForm()">Criar novo Cartão</button>
+                <cardform save-complete="addCard(card)" ng-show="showFormFlag" card="card" frase-label="Frase" resposta-label="Resposta" alternativa0-label="Alternativa" alternativa1-label="Alternativa"
+                          alternativa2-label="Alternativa"></cardform>
+                <div>
+                    <div cardblock ng-repeat="c in cardLista" card="c"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
