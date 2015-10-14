@@ -9,14 +9,14 @@ from tekton.gae.middleware.json_middleware import JsonUnsecureResponse, JsonResp
 from tekton.router import to_path
 from tema.tema_model import LicaoForm, Licao, Tema, TemaForm
 from google.appengine.ext import ndb
+from config.template_middleware import TemplateResponse
 
 __author__ = 'Bea'
 
 @login_not_required
 @no_csrf
 def listaTemas():
-    query = Tema.query_ordenada_por_titulo()
-    temas = query.fetch()
+    temas = Tema.query_ordenada_por_titulo().fetch()
     for tema in temas:
         key = tema.key
         key_id = key.id()
@@ -30,6 +30,9 @@ def listaTemas():
 def index():
     form = LicaoForm()
     lessons = Licao.query_ordenada_por_titulo().fetch()
+    for lesson in lessons:
+        key = lesson.key
+        key_id = key.id()
     lessons = [form.fill_with_model(l) for l in lessons]
     return JsonResponse(lessons)
 
@@ -70,6 +73,12 @@ def editar(_resp, **propriedades):
     dct = form.fill_with_model(licao)
     log.info(dct)
     return JsonUnsecureResponse(dct)
+
+@login_not_required
+@no_csrf
+def criar(lesson_id):
+    ctx = {'lesson_id':lesson_id}
+    return TemplateResponse(ctx, '/cards/home.html')
 
 @login_not_required
 @no_csrf

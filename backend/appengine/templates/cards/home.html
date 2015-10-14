@@ -18,6 +18,7 @@
 
         var cardApp = angular.module('cardApp', ['cardModule','rest'])
         function CardController($scope, CardApi) {
+            $scope.lessons = [];
             $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa2: '雲は黒いです'}
             $scope.showFormFlag = false;
             $scope.cardLista = [];

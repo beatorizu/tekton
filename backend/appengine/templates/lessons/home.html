@@ -25,6 +25,9 @@
                 },
                 listarTemas: function() {
                     return $http.post('{{ rest_list_tema_path }}');
+                },
+                criarCartao: function(lesson) {
+                    return $http.post('{{rest_create_card}}',{lesson_id:lesson.id})
                 }
             };
         });
