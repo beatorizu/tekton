@@ -25,10 +25,18 @@
 
     <!-- Purisa Font - Font Squirrel -->
 
-	<link rel="stylesheet" href="/static/purisa/css/stylesheet.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="/static/purisa/css/stylesheet.min.css" type="text/css" charset="utf-8" />
     <link rel="stylesheet" href="/static/kao/css/stylesheet.css" type="text/css" charset="utf-8" />
 
     <style>
+        body{
+            font-family: 'purisa';
+        }
+        .pad8 {
+            margin: 8px 15px;
+            color: #777
+        }
+
         .circle{width:150px;height:150px;border-radius:50%;font-size:100px;color:#fff;line-height:150px;text-align:center;background:#000}
     </style>
     <script src="/static/jquery/js/jquery-1.11.1.min.js"></script>
@@ -64,7 +72,7 @@
                     </li>
                     <li {{ 'class=active' if tab=='LESSONS' }}><a href="/lessons">{% trans %}Lessons{% endtrans %}</a>
                     </li>
-                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards">{% trans %}Cards{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards?lid=">{% trans %}Cards{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
@@ -107,7 +115,7 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Código Fonte do Projeto:<a class="kao kao-github" href="https://github.com/beatorizu/tekton"></a></p>
+        <p class="text-muted text-right">Código Fonte do Projeto: <a target="_blank"                                                         href="https://github.com/beatorizu/tekton"><span class="kao kao-github"></span></a></p>
     </div>
 </div>
 </body>

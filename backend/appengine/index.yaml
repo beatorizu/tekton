@@ -16,6 +16,11 @@ indexes:
   - name: origin
   - name: creation
 
+- kind: Cartao
+  properties:
+  - name: licao
+  - name: frase
+
 - kind: Licao
   properties:
   - name: tema

@@ -50,7 +50,8 @@ class Cartao(ndb.Model):
     resposta = ndb.StringProperty(required=True)
     imagem = ndb.KeyProperty(KanjiOrder)
     audio = ndb.KeyProperty(KanjiSound)
-    #licao = ndb.KeyProperty(Licao)
+    licao = ndb.KeyProperty(Licao)
+    kanji = ndb.StringProperty(required=True)
     alternativa0 = ndb.StringProperty(required=True)
     alternativa1 = ndb.StringProperty(required=True)
     alternativa2 = ndb.StringProperty(required=True)
@@ -59,6 +60,12 @@ class Cartao(ndb.Model):
     def query_ordenada_por_frase(cls):
         return cls.query().order(Cartao.frase)
 
+    @classmethod
+    def query_por_licao_ordenada_por_frase(cls, lid):
+        if isinstance(lid, basestring):
+            lid = ndb.Key(Licao, int(lid))
+        return cls.query(cls.licao==lid).order(cls.frase)
+
 class CartaoForm(ModelForm):
     _model_class = Cartao
-    _include = [Cartao.frase,Cartao.resposta,Cartao.alternativa0,Cartao.alternativa1,Cartao.alternativa2,Cartao.imagem,Cartao.audio]
+    _include = [Cartao.frase,Cartao.resposta,Cartao.alternativa0,Cartao.alternativa1,Cartao.alternativa2,Cartao.licao,Cartao.imagem,Cartao.audio,Cartao.kanji]

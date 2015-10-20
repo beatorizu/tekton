@@ -10,6 +10,9 @@
                 salvar: function (card) {
                     return $http.post('{{ rest_new_path }}', card);
                 },
+                deletar: function(id) {
+                    return $http.post('{{ rest_delete_path }}', {card_id: id});
+                },
                 listar: function () {
                     return $http.post('{{ rest_list_path }}');
                 }
@@ -19,7 +22,7 @@
         var cardApp = angular.module('cardApp', ['cardModule','rest'])
         function CardController($scope, CardApi) {
             $scope.lessons = [];
-            $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa2: '雲は黒いです'}
+            $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa2: '雲は黒いです', licao: '{{lid}}', kanji: '空' }
             $scope.showFormFlag = false;
             $scope.cardLista = [];
             CardApi.listar().success(function (cards) {
@@ -31,6 +34,15 @@
             }
             $scope.addCard = function (card) {
                 $scope.cardLista.unshift(card);
+            }
+            $scope.removerCard = function (card) {
+                var cardLista = $scope.cardLista;
+                for (var i = 0; i < cardLista.length; i += 1) {
+                    if (card.id == cardLista[i].id) {
+                        cardLista.splice(i, 1);
+                        break;
+                    }
+                }
             }
         }
     </script>
@@ -45,12 +57,15 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
                 <button class="btn btn-success" ng-click="showOrHideForm()">Criar novo Cartão</button>
-                <cardform save-complete="addCard(card)" ng-show="showFormFlag" card="card" frase-label="Frase" resposta-label="Resposta" alternativa0-label="Alternativa" alternativa1-label="Alternativa"
+                <cardform save-complete="addCard(card)" ng-show="showFormFlag" face="face" card="card" frase-label="Frase" resposta-label="Resposta" alternativa0-label="Alternativa" alternativa1-label="Alternativa"
                           alternativa2-label="Alternativa"></cardform>
                 <div>
-                    <div cardblock ng-repeat="c in cardLista" card="c"></div>
+                    <div cardblock ng-repeat="c in cardLista" card="c" delete-complete="removerCard(card)"></div>
                 </div>
             </div>
         </div>
     </div>
+    {% if _logged_user and 'ADMIN' in _logged_user.groups %}
+        <h1>T_T kanashii!!</h1>
+    {% endif %}
 {% endblock %}

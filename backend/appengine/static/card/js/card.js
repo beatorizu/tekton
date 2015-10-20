@@ -41,6 +41,10 @@ cardModule.directive('cardform', function () {
                     $scope.savingFlag = false;
                 });
             }
+            $scope.face = true;
+            $scope.turnCard = function () {
+                $scope.face = !$scope.face;
+            }
         }
     };
 });
@@ -56,6 +60,12 @@ cardModule.directive('cardblock', function() {
         },
         controller: function($scope, CardApi) {
             $scope.cardEdicao = {};
+            $scope.deletar = function() {
+                $scope.ajaxComplete = true;
+                CardApi.deletar($scope.card.id).success(function() {
+                    $scope.deleteComplete({'card':$scope.card});
+                });
+            }
             $scope.editar = function() {
                 $scope.cardEdicao.id = $scope.card.id;
                 $scope.cardEdicao.frase = $scope.card.frase;

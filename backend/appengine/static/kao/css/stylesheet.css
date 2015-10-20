@@ -12,7 +12,6 @@
          url('../fonts/font-webfont.svg#kao_fontregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 .kao {
@@ -21,9 +20,9 @@
 	display:inline-block;
 	font-family:'Kao Font';
 	font-style:normal;
-	font-weight:400;
+	font-weight:norma;
 	line-height:1;
-	font-size: x-large;
+	font-size: large;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale
 }

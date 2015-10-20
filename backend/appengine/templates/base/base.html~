@@ -72,7 +72,7 @@
                     </li>
                     <li {{ 'class=active' if tab=='LESSONS' }}><a href="/lessons">{% trans %}Lessons{% endtrans %}</a>
                     </li>
-                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards">{% trans %}Cards{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards?lid=''">{% trans %}Cards{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>

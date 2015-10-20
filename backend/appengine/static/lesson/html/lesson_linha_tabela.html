@@ -9,9 +9,9 @@
     </td>
     <img src="/static/img/ajax.gif" ng-show="ajaxFlag"/>
     <td>
-        <button class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="criarCartao()">
+        <a class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="criarCartao()" ng-href="/cards?lid={{ lesson.id }}">
             <i class="glyphicon glyphicon-edit"></i>
-        </button>
+        </a>
     </td>
     <td>
         <div ng-class="{true: '', false: 'has-error'}[erros.titulo == null]">

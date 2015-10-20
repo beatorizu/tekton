@@ -38,6 +38,19 @@ def index():
 
 @login_not_required
 @no_csrf
+def indext(tid):
+    query = Licao.query_por_tema_ordenada_por_nome(tid)
+    lessons = query.fetch()
+    for lesson in lessons:
+        key = lesson.key
+        key_id = key.id()
+    form = LicaoForm()
+    lessons = [form.fill_with_model(l) for l in lessons]
+
+    return JsonResponse(lessons)
+
+@login_not_required
+@no_csrf
 def deletar(lesson_id):
     key = ndb.Key(Licao,int(lesson_id))
     key.delete()
