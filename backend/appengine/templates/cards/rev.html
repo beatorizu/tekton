@@ -1,14 +1,63 @@
-{% extends 'base/base.html' %}
+{% extends 'cards/base.html' %}
 {% block tabs %}
 {{ select_tab('CARDS') }}
 {% endblock %}
+{% block js %}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/card/js/card.js"></script><!--referência ao módulo card-->
+    <script type="text/javascript">
+
+        var rest = angular.module('rest', []);
+        rest.factory('CardApi', function ($http) {
+            return {
+                salvar: function (card) {
+                    return $http.post('{{ rest_new_path }}', card);
+                },
+                deletar: function(id) {
+                    return $http.post('{{ rest_delete_path }}', {card_id: id});
+                },
+                listar: function () {
+                    return $http.post('{{ rest_list_path }}');
+                },
+                revisar: function(id) {
+                    return $http.post('{{ rest_rev_path }}', {cid: id});
+                }
+            };
+        });
+
+        var cardApp = angular.module('cardApp', ['cardModule','rest'])
+        function CardController($scope, CardApi, $http) {
+            $scope.lessons = [];
+            //$scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: 'O céu é azul', alternativa1: 'A nuvem é azul', alternativa2: 'A nuvem é preta', licao: '{{lid}}', kanji: '空', image:'', audio:''}
+            $scope.showFormFlag = false;
+            $scope.cardLista = [];
+            CardApi.revisar().success(function (id) {
+                $scope.card = card;
+            });
+            $scope.showOrHideForm = function () {
+                $scope.showFormFlag = !$scope.showFormFlag;
+            }
+            $scope.addCard = function (card) {
+                $scope.cardLista.unshift(card);
+            }
+            $scope.removerCard = function (card) {
+                var cardLista = $scope.cardLista;
+                for (var i = 0; i < cardLista.length; i += 1) {
+                    if (card.id == cardLista[i].id) {
+                        cardLista.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}
 {% block body %}
-	<div class="container">
+    {% set card = card or None %}
+    <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <button class="btn btn-success">Criar novo Cartão</button>
-                <button class="btn btn-success">Criar novo Cartão</button>
-                <button class="btn btn-success">Criar novo Cartão</button>
+            <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
+                <cardrevisao card="card" ></cardrevisao>
             </div>
         </div>
     </div>

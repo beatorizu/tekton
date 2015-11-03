@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
-from routes.cards import rest
+from routes.cards import rest, rev
 from tekton.router import to_path
 
 __author__ = 'bea'
@@ -13,6 +13,7 @@ __author__ = 'bea'
 def index(lid=''):
     ctx = {'rest_new_path': to_path(rest.salvar),
            'rest_delete_path': to_path(rest.deletar),
+           'rest_rev_path': to_path(rev.index),
            'lid': lid}
     if lid is '':
         ctx['rest_list_path'] = to_path(rest.index)

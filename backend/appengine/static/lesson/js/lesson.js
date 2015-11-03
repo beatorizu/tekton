@@ -91,18 +91,6 @@ lessonModule.directive('lessonfilter', function() {
         templateUrl: '/static/lesson/html/lesson_filter_form.html',
         scope: {
             temas: '='
-        },
-        controller: function($scope, LessonApi) {
-            $scope.filtrandoFlag = false;
-            $scope.tema = '';
-            $scope.filtrar = function() {
-                $scope.filtrandoFlag = true;
-                LessonApi.filtrar($scope.tema).success(function(lessons) {
-                    $scope.lessonLista = lessons;
-                    console.log($scope.lessonLista);
-                    $scope.filtrandoFlag = false;
-                })
-            }
         }
     };
 });

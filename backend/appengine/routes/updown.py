@@ -35,6 +35,7 @@ def listImages():#usar para listar os arquivos de mp3 e gif dos cards ^^
 @login_not_required
 def upload(_handler, files):
     blob_infos = _handler.get_uploads('files')
+    _handler.get_uploads
     blob_facade.save_blob_files_cmd(blob_infos).execute()
     return RedirectResponse(index)
 

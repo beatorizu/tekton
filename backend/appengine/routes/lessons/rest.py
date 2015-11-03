@@ -92,11 +92,3 @@ def editar(_resp, **propriedades):
 def criar(lesson_id):
     ctx = {'lesson_id':lesson_id}
     return TemplateResponse(ctx, '/cards/home.html')
-
-@login_not_required
-@no_csrf
-def filtrar(tema_id):
-    form = LicaoForm()
-    lessons = Licao.query_por_tema_ordenada_por_nome(ndb.Key(Tema, int(tema_id))).fetch()
-    lessons = [form.fill_with_model(l) for l in lessons]
-    return JsonResponse(lessons)

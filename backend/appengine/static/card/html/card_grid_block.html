@@ -1,7 +1,8 @@
 <div class="col-sm-6 col-md-4">
     <h2>{{ card.frase }}</h2>
     <p>
-        <div class="circle">{{ card.kanji }}</div>
+        <!--<div class="circle" ng-click="revisar()">{{ card.kanji }}</div>-->
+        <a ng-href="cards/rev?cid={{ card.id }}"><div class="circle">{{ card.kanji }}</div></a>
     </p>
     <p class="col-sm-6">
         <button class="btn btn-success btn-md" ng-click="editar()">

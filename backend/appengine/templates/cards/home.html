@@ -15,14 +15,17 @@
                 },
                 listar: function () {
                     return $http.post('{{ rest_list_path }}');
+                },
+                revisar: function(id) {
+                    return $http.post('{{ rest_rev_path }}', {cid: id});
                 }
             };
         });
 
         var cardApp = angular.module('cardApp', ['cardModule','rest'])
-        function CardController($scope, CardApi) {
+        function CardController($scope, CardApi, $http) {
             $scope.lessons = [];
-            $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: '空は青いです', alternativa1: '雲は青いです', alternativa2: '雲は黒いです', licao: '{{lid}}', kanji: '空' }
+            $scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: 'O céu é azul', alternativa1: 'A nuvem é azul', alternativa2: 'A nuvem é preta', licao: '{{lid}}', kanji: '空', image:'', audio:''}
             $scope.showFormFlag = false;
             $scope.cardLista = [];
             CardApi.listar().success(function (cards) {

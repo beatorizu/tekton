@@ -78,3 +78,21 @@ cardModule.directive('cardblock', function() {
         }
     }
 });
+
+cardModule.directive('cardrevisao', function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: '/static/card/html/card_revisao.html',
+        scope: {
+            card: '=',
+        },
+        controller: function($scope, CardApi) {
+            $scope.revisar = function() {
+                CardApi.revisar($scope.card.id).success(function() {
+                    console.log('imprimi');
+                });
+            }
+        }
+    }
+});

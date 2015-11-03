@@ -59,7 +59,6 @@ class Cartao(ndb.Model):
     @classmethod
     def query_ordenada_por_frase(cls):
         return cls.query().order(Cartao.frase)
-
     @classmethod
     def query_por_licao_ordenada_por_frase(cls, lid):
         if isinstance(lid, basestring):

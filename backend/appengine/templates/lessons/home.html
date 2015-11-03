@@ -1,6 +1,5 @@
 {% extends 'lessons/base.html' %}
 {% block js %}
-    {# https://docs.angularjs.org/error/$injector/unpr?p0=LessonApiProvider%20%3C-%20LessonApi #}
     <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
     <script type="text/javascript" src="/static/lesson/js/lesson.js"></script><!--referência ao módulo lesson-->
     <script>
@@ -16,9 +15,6 @@
                 },
                 deletar: function(id) {
                     return $http.post('{{ rest_delete_path }}', {lesson_id: id});
-                },
-                filtrar: function(tema) {
-                    return $http.post('{{ rest_filter_path }}', {tema_id: tema});
                 },
                 editar: function(lesson) {
                     return $http.post('{{ rest_edit_path }}/',{lesson_id:lesson.id, titulo:lesson.titulo, descricao:lesson.descricao, tema: lesson.tema});
@@ -41,7 +37,7 @@
             }).error(function (erros) {
                 $scope.erros = erros;
             })
-            $scope.lesson = {titulo: '', descricao: '', tema: ''};
+            $scope.lesson = {titulo: 'Titulo', descricao: 'Descrição', tema: ''};
             $scope.showFormFlag = false;
             $scope.showFilterFlag = true;
             $scope.listandoFlag = true;
@@ -88,13 +84,13 @@
                     <thead>
                     <tr>
                         <th/>
-                        <th>{% trans %}Id{% endtrans %}</th>
+                        <th/>
                         <th>{% trans %}Título{% endtrans %}</th>
                         <th>{% trans %}Descrição{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr></tr>
+                    <tr/>
                     <tr ng-hide="filtrandoFlag" lessonlinha ng-repeat="t in lessonLista" lesson="t"
                         delete-complete="removerLesson(lesson)"></tr>
                     </tbody>

@@ -1,7 +1,7 @@
 <tr>
     <td>
         <button class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="editar()">
-            <i class="kao kao-twitter"></i>
+            <i class="glyphicon glyphicon-pencil"></i>
         </button>
         <button class="btn btn-primary btn-sm" ng-hide="ajaxFlag || !editFlag" ng-click="completarEdicao()">
             <i class="glyphicon glyphicon-floppy-saved"></i>
@@ -10,7 +10,7 @@
     <img src="/static/img/ajax.gif" ng-show="ajaxFlag"/>
     <td>
         <a class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="criarCartao()" ng-href="/cards?lid={{ lesson.id }}">
-            <i class="glyphicon glyphicon-edit"></i>
+            <i class="glyphicon glyphicon-tags"></i>
         </a>
     </td>
     <td>

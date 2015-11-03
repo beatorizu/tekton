@@ -10,6 +10,7 @@ from config.template_middleware import TemplateResponse
 __author__ = 'bea'
 
 
+
 @no_csrf
 def index():
     query = Cartao.query_ordenada_por_frase()
@@ -46,24 +47,32 @@ def listarLessons():
 
 @no_csrf
 def salvar(_resp, **propriedades):
+
     form = CartaoForm(**propriedades)
     erros = form.validate()
     if erros:
         _resp.set_status(400)
         return JsonUnsecureResponse(erros)
+
     propriedades['licao'] = ndb.Key(Licao, int(propriedades['licao']))
     card = form.fill_model()
+
     card.put()
     dct = form.fill_with_model(card)
     log.info(dct)
     return JsonUnsecureResponse(dct)
 
 @no_csrf
+def rev(cid):
+    cards = Cartao.query(Cartao.key == ndb.Key(Cartao, int(cid))).fetch()
+    for c in cards:
+        key = c.key
+    form = CartaoForm()
+    cards = [form.fill_with_model(c) for c in cards]
+    ctx = {'cartao':cards[0]}
+    return JsonResponse(ctx)
+
+@no_csrf
 def deletar(card_id):
     key = ndb.Key(Cartao,int(card_id))
     key.delete()
-
-@no_csrf
-def rev():
-    ctx = {}
-    return TemplateResponse(ctx, '/cards/rev.html')

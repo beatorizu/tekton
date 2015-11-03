@@ -13,7 +13,6 @@ $(document).ready(function() {
     var $lessonsUl = $('#lessons-ul');
     var listaL = document.getElementById('lessons-ul');
 
-
     function addLesson(lesson) {
         var li = '<li id="li-' + lesson.id + '"';
     li = li + '><button id="btn-deletar-' + lesson.id + '"';
