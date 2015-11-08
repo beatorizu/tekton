@@ -54,6 +54,8 @@
 {{ select_tab('CARDS') }}
 {% endblock %}
 {% block body %}
+    <audio id="demo" autoplay="autoplay" src="http://localhost:9999/updown/download/5207287069147136/13-extra-life.mp3"></audio>
+    <button onclick="document.getElementById('demo').play()" type="button" class="btn btn-link glyphicon glyphicon-headphones"></button>
     {% set card = card or None %}
     {% set erros = erros or None %}
     <div class="container">

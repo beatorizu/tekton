@@ -13,10 +13,11 @@ from tekton.router import to_path
 
 @login_not_required
 @no_csrf
-def download(_handler,id,filename):
+def download(_handler,id,filename=None):
     comando=blob_facade.get_blob_file_cmd(id)
     arquivo=comando()
     _handler.send_blob(arquivo.blob_key)
+    _handler.send_blob
 
 @login_not_required
 @no_csrf
@@ -36,7 +37,8 @@ def listImages():#usar para listar os arquivos de mp3 e gif dos cards ^^
 def upload(_handler, files):
     blob_infos = _handler.get_uploads('files')
     _handler.get_uploads
-    blob_facade.save_blob_files_cmd(blob_infos).execute()
+    cmd = blob_facade.save_blob_files_cmd(blob_infos)
+    cmd.execute()
     return RedirectResponse(index)
 
 

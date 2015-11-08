@@ -39,17 +39,11 @@ class LicaoForm(ModelForm):
     _model_class = Licao
     _include = [Licao.titulo,Licao.descricao,Licao.tema]
 
-class KanjiOrder(ndb.Model):
-    image = ndb.BlobProperty()
-
-class KanjiSound(ndb.Model):
-    sound = ndb.BlobProperty()
-
 class Cartao(ndb.Model):
     frase = ndb.StringProperty(required=True)
     resposta = ndb.StringProperty(required=True)
-    imagem = ndb.KeyProperty(KanjiOrder)
-    audio = ndb.KeyProperty(KanjiSound)
+    imagem = ndb.KeyProperty()
+    audio = ndb.KeyProperty()
     licao = ndb.KeyProperty(Licao)
     kanji = ndb.StringProperty(required=True)
     alternativa0 = ndb.StringProperty(required=True)

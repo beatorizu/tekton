@@ -47,6 +47,11 @@ def listarLessons():
 
 @no_csrf
 def salvar(_resp, **propriedades):
+    #img_url
+    #sound - to_path(id,filename)
+    #form action="path/to/method"
+    #get_serving_url - blobcomands
+    #blob_model
 
     form = CartaoForm(**propriedades)
     erros = form.validate()
