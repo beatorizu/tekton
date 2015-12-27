@@ -70,35 +70,25 @@
             <a href="/progresso" class="navbar-brand">Home</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 {% macro select_tab(tab='') %}
-                    <li {{ 'class=active' if tab=='CONTEUDO' }}><a href="/conteudo">{% trans %}Conteúdo{% endtrans %}</a>
-                    </li>
-                    <li {{ 'class=active' if tab=='CONFIGURACAO' }}><a href="/configuracao">{% trans %}Configuração{% endtrans %}</a>
-                    </li>
                     <li {{ 'class=active' if tab=='TEMAS' }}><a href="/temas">{% trans %}Temas{% endtrans %}</a>
                     </li>
-                    <li {{ 'class=active' if tab=='LESSONS' }}><a href="/lessons">{% trans %}Lessons{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='LESSONS' }}><a href="/lessons">{% trans %}Lições{% endtrans %}</a>
                     </li>
-                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards?lid=">{% trans %}Cards{% endtrans %}</a>
+                    <li {{ 'class=active' if tab=='CARDS' }}><a href="/cards?lid=">{% trans %}Cartões{% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
                         </li>
                     {% endif %}
-                {% endmacro %}
-                {% block tabs %}
-                    {{ select_tab() }}
-                {% endblock %}
-            </ul>
-            <div class="nav navbar-nav pull-right pad8">
-                {% if _logged_user %}
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                    {% if _logged_user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="dropdownMenu1"
                                 data-toggle="dropdown">
                             {{ _logged_user.name }}
                             <span class="caret"></span>
-                        </button>
+                        </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/account">{% trans %}Account{% endtrans %}</a></li>
                             <li role="presentation" class="divider"></li>
@@ -110,11 +100,18 @@
                                 </form>
                             </li>
                         </ul>
-                    </div>
+                    </li>
                 {% else %}
-                    <a class="btn btn-success" href="{{ _login_path }}">{% trans %}Login{% endtrans %}</a>
-
+                        <li {{ 'class=active' if tab=='LOGIN' }}><a class="" href="{{ _login_path }}">{% trans %}Login{% endtrans %}</a>
+                        </li>
                 {% endif %}
+                {% endmacro %}
+                {% block tabs %}
+                    {{ select_tab() }}
+                {% endblock %}
+            </ul>
+            <div class="nav navbar-nav pull-right pad8">
+
 
             </div>
         </div>
@@ -123,7 +120,7 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Código Fonte do Projeto: <a target="_blank"                                                         href="https://github.com/beatorizu/tekton"><span class="kao kao-github"></span></a></p>
+        <p class="text-muted text-right">Código Fonte do Projeto: <a target="_blank" href="https://github.com/beatorizu/tekton"><span class="kao kao-github"></span></a></p>
     </div>
 </div>
 </body>

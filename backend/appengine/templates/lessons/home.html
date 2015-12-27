@@ -37,7 +37,7 @@
             }).error(function (erros) {
                 $scope.erros = erros;
             })
-            $scope.lesson = {titulo: 'Titulo', descricao: 'Descrição', tema: ''};
+            $scope.lesson = {titulo: '', descricao: '', tema: ''};
             $scope.showFormFlag = false;
             $scope.showFilterFlag = true;
             $scope.listandoFlag = true;
@@ -84,9 +84,8 @@
                     <thead>
                     <tr>
                         <th/>
-                        <th/>
-                        <th>{% trans %}Título{% endtrans %}</th>
-                        <th>{% trans %}Descrição{% endtrans %}</th>
+                        <th><h4>{% trans %}Título{% endtrans %}</h4></th>
+                        <th><h4>{% trans %}Descrição{% endtrans %}</h4></th>
                     </tr>
                     </thead>
                     <tbody>

@@ -27,7 +27,7 @@
         var temaApp = angular.module('temaApp', ['temaModule', 'rest']);
 
         function TemaController($scope, TemaApi) {
-            $scope.tema = {titulo: 'Titulo', descricao: 'Descrição'};
+            $scope.tema = {titulo: '', descricao: ''};
             $scope.showFormFlag = false;
             $scope.listandoFlag = true;
             $scope.temaLista = [];

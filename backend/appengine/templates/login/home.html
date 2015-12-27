@@ -6,17 +6,20 @@
 {% block js %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% endblock %}
+{% block tabs %}
+{{ select_tab('LOGIN') }}
+{% endblock %}
 {% block body %}
     <div class="container">
         <br/>
 
-        <h1 class="text-center">{% trans %}Login Options{% endtrans %}</h1>
+        <h1 class="text-center">{% trans %}Opções de Login{% endtrans %}</h1>
         <br/>
         <br/>
         <br/>
 
         <div class="row">
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
                 <div class="well">
                     <h2>Email</h2><br/>
 
@@ -32,14 +35,21 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
                 <div class="well">
                     <h2>Google</h2><br/>
                     <a href="{{ login_google_path }}" class="btn btn-social btn-google-plus"><i
                             class="fa fa-google-plus"></i>Google</a>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
+                <div class="well">
+                    <h2>Twitter</h2><br/>
+                    <a href="{{ login_twitter_path }}" class="btn btn-social btn-twitter"><i
+                            class="fa fa-twitter"></i>Twitter</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
                 <div class="well">
                     <h2>Facebook</h2><br/>
                     <button class="btn btn-social btn-facebook" onclick="fb_login();">
@@ -95,7 +105,7 @@
 
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '{{faceapp.app_id if faceapp}}',
+                appId: '1735148966717880',
                 cookie: true,  // enable cookies to allow the server to access
                 // the session
                 xfbml: true,  // parse social plugins on this page

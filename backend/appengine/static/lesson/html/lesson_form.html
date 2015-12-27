@@ -3,12 +3,12 @@
 
     <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.titulo == null]">
         <label for="titulo-input" class="control-label">{{ tituloLabel }}</label>
-        <input type="text" class="form-control" id="titulo-input" ng-model="lesson.titulo"/>
+        <input type="text" placeholder="A-O" class="form-control" id="titulo-input" ng-model="lesson.titulo"/>
         <span class="help-block" ng-show="erros.titulo">{{ erros.titulo }}</span>
     </div>
     <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.descricao == null]">
         <label for="descricao-input" class="control-label">{{ descricaoLabel }}</label>
-        <input type="text" class="form-control" id="descricao-input" ng-model="lesson.descricao"/>
+        <input type="text" placeholder="Coluna do A" class="form-control" id="descricao-input" ng-model="lesson.descricao"/>
         <span class="help-block" ng-show="erros.descricao">{{ erros.descricao }}</span>
     </div>
     <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.tema == null]">

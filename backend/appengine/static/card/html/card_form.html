@@ -1,64 +1,47 @@
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="col-md-12" ng-show="face">
-        <div class="well">
-            <h2>Frente</h2>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.image == null]">
-                <label for="image-input">Ordem dos traços</label>
-                <span class="glyphicon glyphicon-picture"></span>
-                <input id="image-input" type="file" accept="image/gif" ng-model="card.image" />
-                <span class="help-block" ng-show="erros.image">{{ erros.image }}</span>
-                <p class="help-block">image.gif</p>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.audio == null]">
-                <label for="audio-input">Áudio</label>
-                <span class="glyphicon glyphicon-music"></span>
-                <input id="audio-input" type="file" accept="audio/mpeg" ng-model="card.audio" />
-                <span class="help-block" ng-show="erros.audio">{{ erros.audio }}</span>
-                <p class="help-block">audio.mp3</p>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.frese == null]">
-                <label for="frase-input">{{ fraseLabel }}</label>
-                <input class="form-control" id="frase-input" type="text" ng-model="card.frase" />
-                <span class="help-block" ng-show="erros.frase">{{ erros.frase }}</span>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.frese == null]">
-                <label for="kanji-input">Kanji</label>
-                <input class="form-control" id="kanji-input" type="text" ng-model="card.kanji" />
-                <span class="help-block" ng-show="erros.kanji">{{ erros.kanji }}</span>
-            </div>
-            <button class="btn btn-success" ng-click="turnCard()">-></button>
+<div class="well" xmlns="http://www.w3.org/1999/html">
+    <div ng-show="face">
+        <h2>Frente</h2>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.frese == null]">
+            <label for="frase-input">{{ fraseLabel }}</label>
+            <input class="form-control" id="frase-input" type="text" placeholder="空は青いです" ng-model="card.frase" />
+            <span class="help-block" ng-show="erros.frase">{{ erros.frase }}</span>
         </div>
-    </div>
-    <div class="col-md-12" ng-hide="face">
-        <div class="well">
-            <h2>Verso</h2>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.resposta == null]">
-                <label for="resposta-input">{{ respostaLabel }}</label>
-                <input class="form-control" id="resposta-input" type="text" ng-model="card.resposta" />
-                <span class="help-block" ng-show="erros.resposta">{{ erros.resposta }}</span>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa0 == null]">
-                <label for="alternativa-input-0">{{ alternativa0Label }}</label>
-                <input class="form-control" id="alternativa-input-0" type="text" ng-model="card.alternativa0" />
-                <span class="help-block" ng-show="erros.alternativa0">{{ erros.alternativa0 }}</span>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa1 == null]">
-                <label for="alternativa-input-1">{{ alternativa1Label }}</label>
-                <input class="form-control" id="alternativa-input-1" type="text" ng-model="card.alternativa1" />
-                <span class="help-block" ng-show="erros.alternativa1">{{ erros.alternativa1 }}</span>
-            </div>
-            <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa2 == null]">
-                <label for="alternativa-input-2">{{ alternativa2Label }}</label>
-                <input class="form-control" id="alternativa-input-2" type="text" ng-model="card.alternativa2" />
-                <span class="help-block" ng-show="erros.alternativa2">{{ erros.alternativa2 }}</span>
-            </div>
-            <button class="btn btn-success" ng-click="turnCard()"><-</button>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.frese == null]">
+            <label for="kanji-input">Kanji</label>
+            <input class="form-control" id="kanji-input" type="text" placeholder="空" ng-model="card.kanji" />
+            <span class="help-block" ng-show="erros.kanji">{{ erros.kanji }}</span>
         </div>
+        <button class="btn btn-success" ng-click="turnCard()">-></button>
     </div>
-    <div class="col-md-12">
+    <div ng-hide="face">
+        <h2>Verso</h2>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.resposta == null]">
+            <label for="resposta-input">{{ respostaLabel }}</label>
+            <input class="form-control" id="resposta-input" type="text" placeholder="O céu é azul" ng-model="card.resposta" />
+            <span class="help-block" ng-show="erros.resposta">{{ erros.resposta }}</span>
+        </div>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa0 == null]">
+            <label for="alternativa-input-0">{{ alternativa0Label }}</label>
+            <input class="form-control" id="alternativa-input-0" type="text" placeholder="O céu é azul" ng-model="card.alternativa0" />
+            <span class="help-block" ng-show="erros.alternativa0">{{ erros.alternativa0 }}</span>
+        </div>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa1 == null]">
+            <label for="alternativa-input-1">{{ alternativa1Label }}</label>
+            <input class="form-control" id="alternativa-input-1" type="text" placeholder="A nuvem é azul" ng-model="card.alternativa1" />
+            <span class="help-block" ng-show="erros.alternativa1">{{ erros.alternativa1 }}</span>
+        </div>
+        <div class="form-group" ng-class="{true: '', false: 'has-error'}[erros.alternativa2 == null]">
+            <label for="alternativa-input-2">{{ alternativa2Label }}</label>
+            <input class="form-control" id="alternativa-input-2" type="text" placeholder="A nuvem é preta" ng-model="card.alternativa2" />
+            <span class="help-block" ng-show="erros.alternativa2">{{ erros.alternativa2 }}</span>
+        </div>
+        <button class="btn btn-success" ng-click="turnCard()"><-</button>
+    </div>
+    </br>
+    <p>
         <button type="submit" class="btn btn-default btn-block glyphicon glyphicon-open" ng-click="salvar()" ng-hide="savingFlag">
             Salvar
         </button>
-    </div>
+    </p>
     <img src="/static/img/ajax.gif" ng-show="savingFlag" />
-</form>
+</div>
