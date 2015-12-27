@@ -19,37 +19,21 @@
         <br/>
 
         <div class="row">
-            <div class="col-md-6 text-center">
-                <div class="well">
-                    <h2>Email</h2><br/>
-
-                    <form action="{{ login_passwordless_path }}" method="post">
-                        <div class="input-group">
-                            <input type="email" name="email" placeholder="{% trans %}Type your email{% endtrans %}"
-                                   class="form-control"/>
-      <span class="input-group-btn">
-           <button class="btn btn-success" type="submit">Login</button>
-      </span>
-                        </div>
-                        {{ csrf_input() }}
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Google</h2><br/>
                     <a href="{{ login_google_path }}" class="btn btn-social btn-google-plus"><i
                             class="fa fa-google-plus"></i>Google</a>
                 </div>
             </div>
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Twitter</h2><br/>
                     <a href="{{ login_twitter_path }}" class="btn btn-social btn-twitter"><i
                             class="fa fa-twitter"></i>Twitter</a>
                 </div>
             </div>
-            <div class="col-md-6 text-center">
+            <div class="col-md-4 text-center">
                 <div class="well">
                     <h2>Facebook</h2><br/>
                     <button class="btn btn-social btn-facebook" onclick="fb_login();">
