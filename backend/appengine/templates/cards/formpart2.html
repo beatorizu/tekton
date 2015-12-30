@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block js %}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+{% endblock %}
+{% block tabs %}
+{{ select_tab('CARDS') }}
+{% endblock %}
+{% block body %}
+    {% set card = card or None %}
+    {% set erros = erros or None %}
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>Dados textuais<br/>
+                    <small>Passo 2 de 2</small>
+                </h1>
+            </div>
+            <form action="{{ upload_url }}" method="post" enctype="multipart/form-data">
+                {{ csrf_input() }}
+                <input type="hidden" value="{{ cartao }}" name="cartao" />
+{#                <div class="form-group">#}
+{#                    <label for="image-input">Ordem dos traços</label>#}
+{#                    <span class="glyphicon glyphicon-picture"></span>#}
+{#                    <input name="imagem" id="image-input" accept="image/gif" type="file">#}
+{#                    <p class="help-block">image.gif</p>#}
+{#                </div>#}
+                <div class="form-group">
+                    <label for="audio-input">Áudio</label>
+                    <span class="glyphicon glyphicon-music"></span>
+                    <input name="audio" id="audio-input" accept="audio/mpeg" type="file">
+                    <p class="help-block">audio.mp3</p>
+                </div>
+                <button type="submit" class="btn btn-success">Salvar e continuar</button>
+            </form>
+        </div>
+    </div>
+    {% if _logged_user and 'ADMIN' in _logged_user.groups %}
+        <h1>T_T kanashii!!</h1>
+    {% endif %}
+{% endblock %}

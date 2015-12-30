@@ -7,7 +7,7 @@ from routes.cards import rest
 __author__ = 'bea'
 
 @no_csrf
-def index(cid=''):
+def index(cid):
     card = rest.rev(cid)
-    ctx = {'card': card}
+    ctx = {'cartao': card}
     return TemplateResponse(ctx, 'cards/rev.html')

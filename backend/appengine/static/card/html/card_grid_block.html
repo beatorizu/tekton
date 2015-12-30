@@ -4,6 +4,11 @@
         <!--<div class="circle" ng-click="revisar()">{{ card.kanji }}</div>-->
         <a ng-href="cards/rev?cid={{ card.id }}"><div class="circle">{{ card.kanji }}</div></a>
     </p>
+    <p class="">
+        <audio controls>
+            <source src="{{ card.audio_link }}" />
+        </audio>
+    </p>
     <p class="col-sm-4">
         <a class="btn btn-success btn-md" ng-href="#">
             <i class="glyphicon glyphicon-pencil"></i>

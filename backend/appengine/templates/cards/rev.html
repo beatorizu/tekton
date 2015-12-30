@@ -21,6 +21,9 @@
                 },
                 revisar: function(id) {
                     return $http.post('{{ rest_rev_path }}', {cid: id});
+                },
+                mostrar: function () {
+                    return $http.post('/cards/rest/rev', {cid: 5733311175458816});
                 }
             };
         });
@@ -31,8 +34,9 @@
             //$scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: 'O céu é azul', alternativa1: 'A nuvem é azul', alternativa2: 'A nuvem é preta', licao: '{{lid}}', kanji: '空', image:'', audio:''}
             $scope.showFormFlag = false;
             $scope.cardLista = [];
-            CardApi.revisar().success(function (id) {
-                $scope.card = card;
+            CardApi.mostrar().success(function (cartao) {
+                $scope.cartao = cartao;
+                console.log(cartao);
             });
             $scope.showOrHideForm = function () {
                 $scope.showFormFlag = !$scope.showFormFlag;
@@ -57,7 +61,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
-                <cardrevisao card="card" ></cardrevisao>
+                <cardrevisao cartao="cartao" ></cardrevisao>
             </div>
         </div>
     </div>

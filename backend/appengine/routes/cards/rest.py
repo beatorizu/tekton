@@ -2,13 +2,14 @@
 from distutils import log
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
+from routes.cards import new, download
 from tekton.gae.middleware.json_middleware import JsonResponse, JsonUnsecureResponse
+from tekton.router import to_path
 from tema.tema_model import Cartao, CartaoForm, LicaoForm, Licao
 from google.appengine.ext import ndb
 from config.template_middleware import TemplateResponse
 
 __author__ = 'bea'
-
 
 
 @no_csrf
@@ -19,9 +20,15 @@ def index():
         key = card.key
         key_id = key.id()
     form = CartaoForm()
-    cards = [form.fill_with_model(c) for c in cards]
 
-    return JsonResponse(cards)
+    def localized_card(card):
+        card_dic = form.fill_with_model(card)
+        card_dic['audio_link'] = to_path(download,card.audio)
+        return  card_dic
+
+    localized_cards = [localized_card(card) for card in cards]
+
+    return JsonResponse(localized_cards)
 
 @no_csrf
 def indexl(lid):
@@ -31,9 +38,14 @@ def indexl(lid):
         key = card.key
         key_id = key.id()
     form = CartaoForm()
-    cards = [form.fill_with_model(c) for c in cards]
+    def localized_card(card):
+        card_dic = form.fill_with_model(card)
+        card_dic['audio_link'] = to_path(download,card.audio)
+        return  card_dic
 
-    return JsonResponse(cards)
+    localized_cards = [localized_card(card) for card in cards]
+
+    return JsonResponse(localized_cards)
 
 @no_csrf
 def listarLessons():
@@ -76,3 +88,8 @@ def rev(cid):
 def deletar(card_id):
     key = ndb.Key(Cartao,int(card_id))
     key.delete()
+
+@no_csrf
+def create(lid):
+    ctx = {'rest_save_text_path': to_path(new.save),'licao':lid}
+    return TemplateResponse(ctx,'cards/formpart1.html')

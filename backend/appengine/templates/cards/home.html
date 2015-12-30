@@ -59,7 +59,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
-                <button class="btn btn-success" ng-click="showOrHideForm()">Criar novo Cartão</button>
+                <form action="{{ rest_new_path }}">
+                    <button class="btn btn-success" type="submit">Criar novo Cartão</button>
+                </form>
                 <cardform save-complete="addCard(card)" ng-show="showFormFlag" face="face" card="card" frase-label="Frase" resposta-label="Resposta" alternativa0-label="Alternativa" alternativa1-label="Alternativa"
                           alternativa2-label="Alternativa"></cardform>
                 <div>

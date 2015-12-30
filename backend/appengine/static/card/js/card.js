@@ -85,11 +85,12 @@ cardModule.directive('cardrevisao', function() {
         replace: true,
         templateUrl: '/static/card/html/card_revisao.html',
         scope: {
-            card: '=',
+            cartao: '='
         },
         controller: function($scope, CardApi) {
             $scope.revisar = function() {
-                CardApi.revisar($scope.card.id).success(function() {
+                CardApi.revisar($scope.card.id).success(function(card) {
+                    $scope.card = card;
                     console.log('imprimi');
                 });
             }

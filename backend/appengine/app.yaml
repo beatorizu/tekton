@@ -24,6 +24,9 @@ libraries:
 - name: setuptools
   version: "0.6c11"
 
+- name: ssl
+  version: "latest"
+
 handlers:
 - url: /
   script: convention.app
@@ -53,3 +56,6 @@ handlers:
 - url: /_ah/warmup
   script: routes.warmup.app
 
+- url: /admin/.*
+  script: convention.app
+  login: admin

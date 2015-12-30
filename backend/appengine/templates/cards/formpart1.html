@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block js %}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+{% endblock %}
+{% block tabs %}
+{{ select_tab('CARDS') }}
+{% endblock %}
+{% block body %}
+    {% set card = card or None %}
+    {% set erros = erros or None %}
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>Dados textuais<br/>
+                    <small>Passo 1 de 2</small>
+                </h1>
+            </div>
+            <form action="{{ rest_save_text_path }}" method="post">
+                {{ csrf_input() }}
+                <input type="hidden" name="licao" value="{{ licao }}" />
+                {{ form_input('Frase','frase',card.frase,erros.frase,'空は青いです') }}
+                {{ form_input('Kanji','kanji',card.kanji,erros.kanji,'空') }}
+                {{ form_input('Resposta','resposta',card.resposta,erros.resposta,'O céu é azul') }}
+                {{ form_input('Alternativa','alternativa0',card.alternativa0,erros.alternativa0,'O céu é azul') }}
+                {{ form_input('Alternativa','alternativa1',card.alternativa1,erros.alternativa1,'A nuvem é azul') }}
+                {{ form_input('Alternativa','alternativa2',card.alternativa2,erros.alternativa2,'A nuvem é preta') }}
+                <button type="submit" class="btn btn-success">Salvar e continuar</button>
+            </form>
+        </div>
+    </div>
+    {% if _logged_user and 'ADMIN' in _logged_user.groups %}
+        <h1>T_T kanashii!!</h1>
+    {% endif %}
+{% endblock %}
