@@ -1,0 +1,49 @@
+{% extends 'cards/base.html' %}
+{% block js %}
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/lesson/js/lesson.js"></script><!--referência ao módulo lesson-->
+    <script>
+
+        var rest = angular.module('rest', []);
+        rest.factory('LessonApi', function ($http) {
+            return {
+                listar: function() {
+                    return $http.post('{{ rest_list_path }}');
+                }
+            };
+        });
+
+        var lessonApp = angular.module('lessonApp', ['lessonModule', 'rest']);
+
+        function LessonController($scope, LessonApi) {
+            $scope.lesson = {titulo: '', descricao: '', tema: ''};
+            $scope.showFormFlag = false;
+            $scope.showFilterFlag = true;
+            $scope.listandoFlag = true;
+            $scope.filtrandoFlag = false;
+            $scope.lessonLista = [];
+            LessonApi.listar().success(function (lessons) {
+                $scope.lessonLista = lessons;
+                $scope.listandoFlag = false;
+            });
+
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    {% set lesson = lesson or None %}
+    {% set erros = erros or None %}
+    {% set temas = temas or None %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" ng-app="lessonApp" ng-controller="LessonController">
+                <div class="page-header">
+                    <h1>Selecionar Lição<br/>
+                        <small>Passo 1 de 3</small>
+                    </h1>
+                </div>
+                <div lessonlist ng-repeat="l in lessonLista" lesson="l"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

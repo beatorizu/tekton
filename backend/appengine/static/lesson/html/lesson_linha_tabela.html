@@ -1,5 +1,5 @@
 <tr>
-    <td>
+    <td ng-show="{{ admin }}">
         <button class="btn btn-success btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="editar()">
             <i class="glyphicon glyphicon-pencil"></i>
         </button>
@@ -22,7 +22,7 @@
             <input ng-show="editFlag" class="form-control" type="text" ng-model="lessonEdicao.descricao"/>
         </div>
     </td>
-    <td>
+    <td ng-show="{{ admin }}">
         <button class="btn btn-danger btn-sm" ng-hide="ajaxFlag || editFlag" ng-click="deletar()">
             <i class="glyphicon glyphicon-trash"></i>
         </button>

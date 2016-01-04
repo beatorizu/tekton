@@ -20,7 +20,6 @@
                 editar: function(tema) {
                     return $http.post('{{ rest_edit_path }}/',{tema_id:tema.id, titulo:tema.titulo, descricao:tema.descricao});
                 }
-
             };
         });
 
@@ -35,6 +34,8 @@
                 $scope.temaLista = temas;
                 $scope.listandoFlag = false;
             });
+            $scope.admin = false;
+
             $scope.showOrHideForm = function () {
                 $scope.showFormFlag = !$scope.showFormFlag;
             }
@@ -60,20 +61,20 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="temaApp" ng-controller="TemaController">
-                <button class="btn btn-success" ng-click="showOrHideForm()">Criar novo Tema</button>
+                <button ng-show="{{ admin }}" class="btn btn-success" ng-click="showOrHideForm()">Criar novo Tema</button>
                 <temaform save-complete="addTema(tema)" ng-show="showFormFlag" tema="tema" titulo-label="Titulo"
                           descricao-label="Descrição"></temaform>
                 <h3>Lista de Temas</h3>
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th/>
+                        <th ng-show="{{ admin }}"/>
                         <th>{% trans %}Título{% endtrans %}</th>
                         <th>{% trans %}Descrição{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr temalinha ng-repeat="t in temaLista" tema="t" delete-complete="removerTema(tema)"></tr>
+                    <tr temalinha ng-repeat="t in temaLista" admin="{{ admin }}" tema="t" delete-complete="removerTema(tema)"></tr>
                     </tbody>
                 </table>
                 <img src="/static/img/ajax.gif" ng-show="listandoFlag"/>

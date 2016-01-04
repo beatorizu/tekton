@@ -46,7 +46,8 @@ temaModule.directive('temalinha', function () {
         templateUrl: '/static/tema/html/tema_linha_tabela.html',
         scope: {
             tema: '=',
-            deleteComplete: '&'
+            deleteComplete: '&',
+            admin: '='
         },
         controller: function ($scope, TemaApi) {
             $scope.ajaxComplete = false;

@@ -49,7 +49,8 @@ lessonModule.directive('lessonlinha', function () {
         templateUrl: '/static/lesson/html/lesson_linha_tabela.html',
         scope: {
             lesson: '=',
-            deleteComplete: '&'
+            deleteComplete: '&',
+            admin: '='
         },
         controller: function ($scope, LessonApi) {
             $scope.ajaxComplete = false;
@@ -80,6 +81,19 @@ lessonModule.directive('lessonlinha', function () {
                     $scope.erros = erros;
                 });
             }
+        }
+    };
+});
+
+lessonModule.directive('lessonlist', function () {
+    return {
+        restrict: 'A',
+        replace: true,
+        templateUrl: '/static/card/html/lesson_list.html',
+        scope: {
+            lesson: '='
+        },
+        controller: function ($scope, LessonApi) {
         }
     };
 });

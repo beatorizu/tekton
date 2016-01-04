@@ -22,8 +22,8 @@
                 revisar: function(id) {
                     return $http.post('{{ rest_rev_path }}', {cid: id});
                 },
-                mostrar: function () {
-                    return $http.post('/cards/rest/rev', {cid: 5733311175458816});
+                mostrar: function(id) {
+                    return $http.post('{{ rest_rev_path }}', {cid: id});
                 }
             };
         });
@@ -61,7 +61,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
-                <cardrevisao cartao="cartao" ></cardrevisao>
+                <cardrevisao cartao="cartao.cartao" ></cardrevisao>
             </div>
         </div>
     </div>

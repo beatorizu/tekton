@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-success text-center">
-                Revisão - 空は青いです
+                {{ cartao.frase }}
             </h3>
             <div class="circle">{{ cartao.kanji }}</div>
-            <audio id="demo" src="http://216.227.134.162/ost/sonic-the-hedgehog-original-soundtrack/abvudjikmu/13-extra-life.mp3"></audio>
-            <button onclick="document.getElementById('demo').play()" type="button" class="btn btn-link glyphicon glyphicon-headphones"></button>
+            <audio id="demo" src="{{ cartao.audio_link }}"></audio>
+            <button onclick="document.getElementById('demo').play()" type="button" class="btn btn-link btn-lg glyphicon glyphicon-play"></button>
             <button class="btn btn-link glyphicon glyphicon-pencil" type="button"></button>
         </div>
     </div>

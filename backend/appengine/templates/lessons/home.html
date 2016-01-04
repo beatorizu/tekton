@@ -47,6 +47,7 @@
                 $scope.lessonLista = lessons;
                 $scope.listandoFlag = false;
             });
+            $scope.admin = false;
             $scope.showOrHideForm = function () {
                 $scope.showFormFlag = !$scope.showFormFlag;
             }
@@ -74,7 +75,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2" ng-app="lessonApp" ng-controller="LessonController">
-                <button class="btn btn-success" ng-click="showOrHideForm()">Criar nova Lição</button>
+                <button ng-show="{{ admin }}" class="btn btn-success" ng-click="showOrHideForm()">Criar nova Lição</button>
                 <lessonform save-complete="addLesson(lesson)" ng-show="showFormFlag" lesson="lesson" temas="temas"
                             titulo-label="Titulo" descricao-label="Descrição" tema-label="Tema"></lessonform>
 
@@ -83,14 +84,14 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th/>
+                        <th ng-show="{{ admin }}"/>
                         <th><h4>{% trans %}Título{% endtrans %}</h4></th>
                         <th><h4>{% trans %}Descrição{% endtrans %}</h4></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr/>
-                    <tr ng-hide="filtrandoFlag" lessonlinha ng-repeat="t in lessonLista" lesson="t"
+                    <tr ng-hide="filtrandoFlag" lessonlinha ng-repeat="t in lessonLista" admin="{{ admin }}" lesson="t"
                         delete-complete="removerLesson(lesson)"></tr>
                     </tbody>
                 </table>

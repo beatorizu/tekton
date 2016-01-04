@@ -56,7 +56,8 @@ cardModule.directive('cardblock', function() {
         templateUrl: '/static/card/html/card_grid_block.html',
         scope: {
             card: '=',
-            deleteComplete: '&'
+            deleteComplete: '&',
+            admin: '='
         },
         controller: function($scope, CardApi) {
             $scope.cardEdicao = {};
@@ -85,7 +86,7 @@ cardModule.directive('cardrevisao', function() {
         replace: true,
         templateUrl: '/static/card/html/card_revisao.html',
         scope: {
-            cartao: '='
+            cartao: '=',
         },
         controller: function($scope, CardApi) {
             $scope.revisar = function() {

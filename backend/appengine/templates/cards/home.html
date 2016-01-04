@@ -32,6 +32,7 @@
                 $scope.cardLista = cards;
                 $scope.listandoFlag = false;
             });
+            $scope.admin = false;
             $scope.showOrHideForm = function () {
                 $scope.showFormFlag = !$scope.showFormFlag;
             }
@@ -58,14 +59,14 @@
     {% set erros = erros or None %}
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController">
-                <form action="{{ rest_new_path }}">
+            <div class="col-md-8 col-md-offset-2" ng-app="cardApp" ng-controller="CardController" role="form">
+                <form ng-show="{{ admin }}" action="{{ rest_new_path }}">
                     <button class="btn btn-success" type="submit">Criar novo Cartão</button>
                 </form>
                 <cardform save-complete="addCard(card)" ng-show="showFormFlag" face="face" card="card" frase-label="Frase" resposta-label="Resposta" alternativa0-label="Alternativa" alternativa1-label="Alternativa"
                           alternativa2-label="Alternativa"></cardform>
                 <div>
-                    <div cardblock ng-repeat="c in cardLista" card="c" delete-complete="removerCard(card)"></div>
+                    <div cardblock ng-repeat="c in cardLista" admin="{{ admin }}" card="c" delete-complete="removerCard(card)"></div>
                 </div>
             </div>
         </div>

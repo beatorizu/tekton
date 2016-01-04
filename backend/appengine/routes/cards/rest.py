@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from distutils import log
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_not_required
+from gaepermission.decorator import login_required, login_not_required, permissions
+from permission_app.model import ADMIN
 from routes.cards import new, download
 from tekton.gae.middleware.json_middleware import JsonResponse, JsonUnsecureResponse
 from tekton.router import to_path
@@ -13,6 +14,7 @@ __author__ = 'bea'
 
 
 @no_csrf
+@login_not_required
 def index():
     query = Cartao.query_ordenada_por_frase()
     cards = query.fetch()
@@ -23,14 +25,14 @@ def index():
 
     def localized_card(card):
         card_dic = form.fill_with_model(card)
-        card_dic['audio_link'] = to_path(download,card.audio)
-        return  card_dic
+        return card_dic
 
     localized_cards = [localized_card(card) for card in cards]
 
     return JsonResponse(localized_cards)
 
 @no_csrf
+@login_not_required
 def indexl(lid):
     query = Cartao.query_por_licao_ordenada_por_frase(lid)
     cards = query.fetch()
@@ -40,7 +42,6 @@ def indexl(lid):
     form = CartaoForm()
     def localized_card(card):
         card_dic = form.fill_with_model(card)
-        card_dic['audio_link'] = to_path(download,card.audio)
         return  card_dic
 
     localized_cards = [localized_card(card) for card in cards]
@@ -48,6 +49,7 @@ def indexl(lid):
     return JsonResponse(localized_cards)
 
 @no_csrf
+@login_not_required
 def listarLessons():
     form = LicaoForm()
     lessons = Licao.query_ordenada_por_titulo().fetch()
@@ -58,6 +60,7 @@ def listarLessons():
     return JsonResponse(lessons)
 
 @no_csrf
+@login_not_required
 def salvar(_resp, **propriedades):
 
     form = CartaoForm(**propriedades)
@@ -75,21 +78,30 @@ def salvar(_resp, **propriedades):
     return JsonUnsecureResponse(dct)
 
 @no_csrf
+@login_required
 def rev(cid):
-    cards = Cartao.query(Cartao.key == ndb.Key(Cartao, int(cid))).fetch()
-    for c in cards:
-        key = c.key
     form = CartaoForm()
-    cards = [form.fill_with_model(c) for c in cards]
-    ctx = {'cartao':cards[0]}
+    card = Cartao.get_by_id(int(cid))
+    dct = form.fill_with_model(card)
+    dct['audio_link'] = to_path(download,card.audio)
+
+    ctx = {'cartao':dct}
     return JsonResponse(ctx)
 
 @no_csrf
+@permissions(ADMIN)
 def deletar(card_id):
     key = ndb.Key(Cartao,int(card_id))
     key.delete()
 
 @no_csrf
+@login_not_required
 def create(lid):
     ctx = {'rest_save_text_path': to_path(new.save),'licao':lid}
     return TemplateResponse(ctx,'cards/formpart1.html')
+
+@no_csrf
+@login_not_required
+def chooseLesson():
+    ctx = {'rest_list_path':to_path(listarLessons)}
+    return TemplateResponse(ctx,'cards/formpart0.html')
