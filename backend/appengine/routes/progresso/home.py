@@ -7,15 +7,21 @@ from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from gaepermission.model import MainUser
+from tema.tema_model import Revisao
 
 
 @login_required
 @no_csrf
 def index(_logged_user):
-    key = _logged_user.key
-    # usar para relacionar com cartão
-    user_id = key.id()
-    print(ndb.Key(MainUser,int(user_id)))
-    # print(user_id)
-    return TemplateResponse()
+    uid = _logged_user.key
+    rewiews=Revisao.query_total_review(uid).fetch()
+    total=0
+    correct=0
+    wrong=0
+    for review in rewiews:
+        total+=1
+        if review.status: correct+=1
+        else: wrong+=1
+    properties={'total':total}
+    return TemplateResponse(properties,'progresso/home.html')
 

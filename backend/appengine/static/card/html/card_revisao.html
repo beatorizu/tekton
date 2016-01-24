@@ -1,13 +1,26 @@
-<div class="container-fluid">
+<div class="container-fluid" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-success text-center">
                 {{ cartao.frase }}
             </h3>
-            <div class="circle">{{ cartao.kanji }}</div>
-            <audio id="demo" src="{{ cartao.audio_link }}"></audio>
+            <div class="circle" ng-class="{'r_circle':r, 'w_circle':w}">{{ cartao.kanji }}</div>
+            <audio id="demo" src="{{ cartao.audio_link }}" type="audio/mpeg"></audio>
             <button onclick="document.getElementById('demo').play()" type="button" class="btn btn-link btn-lg glyphicon glyphicon-play"></button>
-            <button class="btn btn-link glyphicon glyphicon-pencil" type="button"></button>
+            <div class="page-header">
+
+              <h3><label>Alternativas</label><small>
+              <input ng-init="checked=false" ng-model="resp" name="radSize" id="sizeSmall" value="{{ cartao.alternativa0 }}" checked="checked" type="radio">
+              <label class="ng-binding" for="sizeSmall">{{ cartao.alternativa0 }}</label>
+              
+              <input ng-init="checked=false" ng-model="resp" name="radSize" id="sizeMed" value="{{ cartao.alternativa1 }}" type="radio">
+              <label class="ng-binding" for="sizeMed">{{ cartao.alternativa1 }}</label>
+     
+              <input ng-init="checked=false" ng-model="resp" name="radSize" id="sizeLarge" value="{{ cartao.alternativa2 }}" type="radio">
+              <label class="ng-binding" for="sizeLarge">{{ cartao.alternativa2 }}</label></small>
+            </h3>
+            </p>
+            <button ng-click="revisar()" class="btn btn-warning btn-default">Revisar</button>
         </div>
     </div>
 </div>

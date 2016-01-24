@@ -1,6 +1,7 @@
 {% extends 'base/base.html' %}
 {% block js %}
     <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+
     <script type="text/javascript" src="/static/card/js/card.js"></script><!--referência ao módulo card-->
     <script type="text/javascript">
 
@@ -71,7 +72,4 @@
             </div>
         </div>
     </div>
-    {% if _logged_user and 'ADMIN' in _logged_user.groups %}
-        <h1>T_T kanashii!!</h1>
-    {% endif %}
 {% endblock %}

@@ -6,7 +6,7 @@ from permission_app.model import ADMIN
 from routes.cards import new, download
 from tekton.gae.middleware.json_middleware import JsonResponse, JsonUnsecureResponse
 from tekton.router import to_path
-from tema.tema_model import Cartao, CartaoForm, LicaoForm, Licao
+from tema.tema_model import Cartao, CartaoForm, LicaoForm, Licao, RevisaoForm, Revisao
 from google.appengine.ext import ndb
 from config.template_middleware import TemplateResponse
 
@@ -60,7 +60,7 @@ def listarLessons():
     return JsonResponse(lessons)
 
 @no_csrf
-@login_not_required
+@permissions(ADMIN)
 def salvar(_resp, **propriedades):
 
     form = CartaoForm(**propriedades)
@@ -84,9 +84,18 @@ def rev(cid):
     card = Cartao.get_by_id(int(cid))
     dct = form.fill_with_model(card)
     dct['audio_link'] = to_path(download,card.audio)
-
     ctx = {'cartao':dct}
     return JsonResponse(ctx)
+
+@no_csrf
+@login_required
+def revisar(_logged_user,**properties):
+    bool_values={'true':True,'false':False}
+    uid=_logged_user.key
+    properties['cid']=ndb.Key(Cartao, int(properties['cid']))
+    properties['situacao']=bool_values[properties['situacao']]
+    review=Revisao(cartao=properties['cid'],status=properties['situacao'],usuario=uid)
+    review.put()
 
 @no_csrf
 @permissions(ADMIN)
@@ -95,13 +104,13 @@ def deletar(card_id):
     key.delete()
 
 @no_csrf
-@login_not_required
+@permissions(ADMIN)
 def create(lid):
     ctx = {'rest_save_text_path': to_path(new.save),'licao':lid}
     return TemplateResponse(ctx,'cards/formpart1.html')
 
 @no_csrf
-@login_not_required
+@permissions(ADMIN)
 def chooseLesson():
     ctx = {'rest_list_path':to_path(listarLessons)}
     return TemplateResponse(ctx,'cards/formpart0.html')

@@ -87,11 +87,21 @@ cardModule.directive('cardrevisao', function() {
         templateUrl: '/static/card/html/card_revisao.html',
         scope: {
             cartao: '=',
+            resp: '@',
+            colors: '='
         },
         controller: function($scope, CardApi) {
             $scope.revisar = function() {
-                CardApi.revisar($scope.card.id).success(function(card) {
-                    $scope.card = card;
+                $scope.r=null;
+                $scope.w=null;
+                console.log($scope.cartao.id);
+                console.log($scope.resp);
+                console.log($scope.resp==$scope.cartao.resposta);
+                status=$scope.resp==$scope.cartao.resposta;
+
+                $scope.w=$scope.resp!=$scope.cartao.resposta;
+                $scope.r=$scope.resp==$scope.cartao.resposta;
+                CardApi.revisar($scope.cartao.id,status).success(function(card) {
                     console.log('imprimi');
                 });
             }

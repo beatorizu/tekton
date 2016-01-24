@@ -62,3 +62,19 @@ class Cartao(ndb.Model):
 class CartaoForm(ModelForm):
     _model_class = Cartao
     _exclude = [Cartao.imagem,Cartao.audio]
+
+class Revisao(ndb.Model):
+    usuario = ndb.KeyProperty()
+    cartao = ndb.KeyProperty(Cartao)
+    data = ndb.DateProperty(auto_now=True)
+    status = ndb.BooleanProperty(required=True)
+
+    @classmethod
+    def query_total_review(cls,uid):
+        if isinstance(uid,basestring):
+            uid=ndb.Key(int(uid))
+        return cls.query(cls.usuario==uid)
+
+class RevisaoForm(ModelForm):
+    _model_class = Revisao
+    _include = [Revisao.cartao,Revisao.data,Revisao.status,Revisao.usuario]

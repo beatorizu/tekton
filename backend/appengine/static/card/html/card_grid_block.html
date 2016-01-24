@@ -3,17 +3,12 @@
     <p ng-show="{{ admin }}">
         <a ng-href="cards/rev?cid={{ card.id }}"><div class="circle">{{ card.kanji }}</div></a>
     </p>
-    <p ng-show="{{ admin }}" class="col-sm-4">
-        <a class="btn btn-success btn-md" ng-href="#">
-            <i class="glyphicon glyphicon-pencil"></i>
-        </a>
-    </p>
-    <p ng-show="{{ admin }}" class="col-sm-4">
+    <p ng-show="{{ admin }}" class="col-sm-6">
         <button class="btn btn-success btn-md" ng-click="editar()">
             <i class="glyphicon glyphicon-pencil"></i>
         </button>
     </p>
-    <p ng-show="{{ admin }}" class="col-sm-4">
+    <p ng-show="{{ admin }}" class="col-sm-6">
         <button class="btn btn-danger btn-md" ng-click="deletar()">
             <i class="glyphicon glyphicon-trash"></i>
         </button>

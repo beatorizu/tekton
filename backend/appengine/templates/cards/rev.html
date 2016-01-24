@@ -10,49 +10,22 @@
         var rest = angular.module('rest', []);
         rest.factory('CardApi', function ($http) {
             return {
-                salvar: function (card) {
-                    return $http.post('{{ rest_new_path }}', card);
-                },
-                deletar: function(id) {
-                    return $http.post('{{ rest_delete_path }}', {card_id: id});
-                },
-                listar: function () {
-                    return $http.post('{{ rest_list_path }}');
-                },
-                revisar: function(id) {
-                    return $http.post('{{ rest_rev_path }}', {cid: id});
-                },
                 mostrar: function(id) {
                     return $http.post('{{ rest_rev_path }}', {cid: id});
+                },
+                revisar: function(id,status) {
+                    return $http.post('{{ rest_review_path }}', {cid: id, situacao:status});
                 }
             };
         });
 
         var cardApp = angular.module('cardApp', ['cardModule','rest'])
         function CardController($scope, CardApi, $http) {
-            $scope.lessons = [];
-            //$scope.card = {frase: '空は青いです', resposta: 'O céu é azul', alternativa0: 'O céu é azul', alternativa1: 'A nuvem é azul', alternativa2: 'A nuvem é preta', licao: '{{lid}}', kanji: '空', image:'', audio:''}
-            $scope.showFormFlag = false;
-            $scope.cardLista = [];
+            $scope.colors={null:'circle',false:'w_circle',true:'r_circle'}
             CardApi.mostrar().success(function (cartao) {
                 $scope.cartao = cartao;
                 console.log(cartao);
             });
-            $scope.showOrHideForm = function () {
-                $scope.showFormFlag = !$scope.showFormFlag;
-            }
-            $scope.addCard = function (card) {
-                $scope.cardLista.unshift(card);
-            }
-            $scope.removerCard = function (card) {
-                var cardLista = $scope.cardLista;
-                for (var i = 0; i < cardLista.length; i += 1) {
-                    if (card.id == cardLista[i].id) {
-                        cardLista.splice(i, 1);
-                        break;
-                    }
-                }
-            }
         }
     </script>
 {% endblock %}

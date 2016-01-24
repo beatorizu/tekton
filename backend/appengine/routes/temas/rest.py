@@ -4,7 +4,8 @@ from __future__ import absolute_import, unicode_literals
 from google.appengine.ext import ndb
 from distutils import log
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_not_required
+from gaepermission.decorator import login_not_required, permissions
+from permission_app.model import ADMIN
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse, JsonResponse
 from tema.tema_model import TemaForm, Tema
 
@@ -23,8 +24,8 @@ def index():
 
     return JsonResponse(temas)
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def salvar(_resp, **propriedades):
     form = TemaForm(**propriedades)
     erros = form.validate()
@@ -37,8 +38,8 @@ def salvar(_resp, **propriedades):
     log.info(dct)
     return JsonUnsecureResponse(dct)
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def editar(_resp, **propriedades):
     form = TemaForm(**propriedades)
     erros = form.validate()
@@ -53,8 +54,8 @@ def editar(_resp, **propriedades):
     log.info(dct)
     return JsonUnsecureResponse(dct)
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def deletar(tema_id):
     key = ndb.Key(Tema, int(tema_id))
     key.delete()

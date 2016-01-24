@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 import json
 from distutils import log
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_not_required
+from gaepermission.decorator import login_not_required, permissions
+from permission_app.model import ADMIN
 from routes.temas import rest
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse, JsonResponse
 from tekton.router import to_path
@@ -49,14 +50,14 @@ def indext(tid):
 
     return JsonResponse(lessons)
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def deletar(lesson_id):
     key = ndb.Key(Licao,int(lesson_id))
     key.delete()
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def salvar(_resp, **propriedades):
     form = LicaoForm(**propriedades)
     erros = form.validate()
@@ -71,8 +72,8 @@ def salvar(_resp, **propriedades):
     log.info(dct)
     return JsonUnsecureResponse(dct)
 
-@login_not_required
 @no_csrf
+@permissions(ADMIN)
 def editar(_resp, **propriedades):
     form = LicaoForm(**propriedades)
     erros = form.validate()
