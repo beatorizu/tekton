@@ -16,12 +16,12 @@ def index(_logged_user):
     uid = _logged_user.key
     rewiews=Revisao.query_total_review(uid).fetch()
     total=0
-    correct=0
+    right=0
     wrong=0
     for review in rewiews:
         total+=1
-        if review.status: correct+=1
+        if review.status: right+=1
         else: wrong+=1
-    properties={'total':total}
+    properties={'total':total,'wrong':wrong,'right':right}
     return TemplateResponse(properties,'progresso/home.html')
 
