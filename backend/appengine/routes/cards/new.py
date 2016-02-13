@@ -15,7 +15,7 @@ __author__ = 'bea'
 
 
 @no_csrf
-@login_not_required
+@permissions(ADMIN)
 def save(**kwargs):
 
     form = CartaoForm(**kwargs)
