@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from permission_app.model import ADMIN
 from routes import cards
 from distutils import log
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_not_required
+from gaepermission.decorator import login_not_required, permissions
 from routes.cards import upload
 from tekton.router import to_path
 from tema.tema_model import Cartao, CartaoForm, LicaoForm, Licao
