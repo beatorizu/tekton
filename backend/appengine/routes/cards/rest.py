@@ -42,7 +42,7 @@ def indexl(lid):
     form = CartaoForm()
     def localized_card(card):
         card_dic = form.fill_with_model(card)
-        return  card_dic
+        return card_dic
 
     localized_cards = [localized_card(card) for card in cards]
 
@@ -85,7 +85,7 @@ def rev(cid):
     dct = form.fill_with_model(card)
     dct['audio_link'] = to_path(download,card.audio)
     ctx = {'cartao':dct}
-    return JsonResponse(ctx)
+    return JsonResponse(dct)
 
 @no_csrf
 @login_required
